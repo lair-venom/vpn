@@ -18,6 +18,7 @@ const DownloadLinks: React.FC = () => {
             title="VPN для Windows/Linux" 
             icon={<Monitor className="h-10 w-10" />} 
             description={[
+              { name: "Furious", url: "https://github.com/LorenEteval/Furious/releases/tag/0.5.1" },
               { name: "Hiddify", url: "https://hiddify.com" },
               { name: "NekoRay", url: "https://en.nekoray.org/download/" },
               { name: "Invisible Man - XRay", url: "https://github.com/InvisibleManVPN/InvisibleMan-XRayClient/releases/tag/v3.2.5" }
