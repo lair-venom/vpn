@@ -33,11 +33,10 @@ const Header: React.FC = () => {
         <nav className="hidden md:flex space-x-8">
           <a href="#about" className="text-gray-300 hover:text-orange-400 transition-colors">О сервисе</a>
           <a href="#features" className="text-gray-300 hover:text-orange-400 transition-colors">Преимущества</a>
-          <a href="#pricing" className="text-gray-300 hover:text-orange-400 transition-colors">Цены</a>
+          <a href="#pricing" className="text-gray-300 hover:text-orange-400 transition-colors">Купить</a>
           <a href="#installation" className="text-gray-300 hover:text-orange-400 transition-colors">Установка</a>
           <a href="#tutorials" className="text-gray-300 hover:text-orange-400 transition-colors">Информация</a>
           <a href="#download" className="text-gray-300 hover:text-orange-400 transition-colors">Рекомендуемые клиенты</a>
-          <a href="https://discord.gg/eXJMRkupyA" className="text-gray-300 hover:text-orange-400 transition-colors">Discord</a>
         </nav>
 
         <button 
