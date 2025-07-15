@@ -72,7 +72,7 @@ const Header: React.FC = () => {
             className="text-gray-300 hover:text-orange-400 transition-colors"
             onClick={() => setIsMenuOpen(false)}
           >
-            Цены
+            Купить
           </a>
           <a 
             href="#installation" 
@@ -86,14 +86,14 @@ const Header: React.FC = () => {
             className="text-gray-300 hover:text-orange-400 transition-colors"
             onClick={() => setIsMenuOpen(false)}
           >
-            Инструкции
+            Информация
           </a>
           <a 
             href="#download" 
             className="text-gray-300 hover:text-orange-400 transition-colors"
             onClick={() => setIsMenuOpen(false)}
           >
-            Скачать
+            Рекомендуемые клиенты
           </a>
         </div>
       </div>
