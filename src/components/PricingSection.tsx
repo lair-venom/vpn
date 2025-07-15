@@ -123,8 +123,8 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
             Найдите идеальный план для ваших потребностей
           </p>
           
-          {/* Period Selector */}
-          <div className="inline-flex bg-gray-800 rounded-lg p-1 shadow-md">
+          {/* Period Selector with fixed discount badges */}
+          <div className="inline-flex bg-gray-800 rounded-lg p-1 shadow-md relative">
             <button
               onClick={() => setSelectedPeriod('1month')}
               className={`px-6 py-2 rounded-md font-medium transition-all ${
@@ -137,30 +137,40 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
             </button>
             <button
               onClick={() => setSelectedPeriod('3months')}
-              className={`px-6 py-2 rounded-md font-medium transition-all relative ${
+              className={`px-6 py-2 rounded-md font-medium transition-all ${
                 selectedPeriod === '3months'
                   ? 'bg-orange-500 text-white shadow-md'
                   : 'text-gray-300 hover:text-white'
               }`}
             >
               3 месяца
-              <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
-                -15%
-              </span>
             </button>
             <button
               onClick={() => setSelectedPeriod('1year')}
-              className={`px-6 py-2 rounded-md font-medium transition-all relative ${
+              className={`px-6 py-2 rounded-md font-medium transition-all ${
                 selectedPeriod === '1year'
                   ? 'bg-orange-500 text-white shadow-md'
                   : 'text-gray-300 hover:text-white'
               }`}
             >
               1 год
-              <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
-                -30%
-              </span>
             </button>
+            
+            {/* Discount badges positioned absolutely */}
+            <span 
+              className={`absolute -top-2 left-1/3 transform -translate-x-1/2 bg-green-500 text-white text-xs px-2 py-1 rounded-full transition-opacity ${
+                selectedPeriod === '3months' ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              -15%
+            </span>
+            <span 
+              className={`absolute -top-2 left-2/3 transform -translate-x-1/2 bg-green-500 text-white text-xs px-2 py-1 rounded-full transition-opacity ${
+                selectedPeriod === '1year' ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              -30%
+            </span>
           </div>
         </div>
 
