@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { Check, Shield, Zap, Crown, Server } from 'lucide-react';
 import PaymentModal from './ui/PaymentModal';
+import PromoCodeModal from './ui/PromoCodeModal';
+import PromoNotificationContainer from './ui/PromoNotificationContainer';
+import { validatePromoCode } from '../data/promoCodes';
+import { usePromoNotification } from '../hooks/usePromoNotification';
 
 interface Plan {
   id: string;
@@ -20,11 +24,10 @@ const plans: Plan[] = [
     basePrice: 150,
     color: 'from-blue-500 to-blue-600',
     features: [
-      'Безлимитный трафик',
+      'Базовая защита',
       '1 устройство',
-      'Максимальная скорость',
-      'Базовая поддержка',
-      'Все устройства'
+      'Стандартная скорость',
+      'Базовая поддержка'
     ]
   },
   {
@@ -35,11 +38,10 @@ const plans: Plan[] = [
     color: 'from-green-500 to-green-600',
     popular: true,
     features: [
-      'Безлимитный трафик',
+      'Улучшенная защита',
       '3 устройства',
-      'Максимальная скорость',
-      'Приор. поддержка',
-      'Все устройства'
+      'Высокая скорость',
+      'Приоритетная поддержка'
     ]
   },
   {
@@ -49,11 +51,10 @@ const plans: Plan[] = [
     basePrice: 400,
     color: 'from-purple-500 to-purple-600',
     features: [
-      'Безлимитный трафик',
+      'Максимальная защита',
       '5 устройств',
       'Максимальная скорость',
-      'VIP поддержка 24/7',
-      'Все устройства'
+      'VIP поддержка 24/7'
     ]
   },
   {
@@ -63,11 +64,10 @@ const plans: Plan[] = [
     basePrice: 600,
     color: 'from-orange-500 to-red-600',
     features: [
-      'Безлимитный трафик',
-      '20 устройств',
-      'Максимальная скорость',
-      'Личный менеджер',
-      'Все устройства'
+      'Виртуальная машина',
+      'Безлимитные устройства',
+      'Максимальная анонимность',
+      'Персональный менеджер'
     ]
   }
 ];
@@ -80,6 +80,10 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
   const [selectedPeriod, setSelectedPeriod] = useState<'1month' | '3months' | '1year'>('1month');
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [isPromoModalOpen, setIsPromoModalOpen] = useState(false);
+  const [appliedPromo, setAppliedPromo] = useState<string | null>(null);
+  const [promoDiscount, setPromoDiscount] = useState<number>(0);
+  const { promoNotifications, showPromoNotification, removePromoNotification } = usePromoNotification();
 
   const getPeriodMultiplier = () => {
     switch (selectedPeriod) {
@@ -108,7 +112,33 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
   };
 
   const calculatePrice = (basePrice: number) => {
+    const baseTotal = Math.round(basePrice * getPeriodMultiplier());
+    if (promoDiscount > 0) {
+      return Math.round(baseTotal * (1 - promoDiscount / 100));
+    }
+    return baseTotal;
+  };
+
+  const getOriginalPrice = (basePrice: number) => {
     return Math.round(basePrice * getPeriodMultiplier());
+  };
+
+  const handleApplyPromo = (code: string) => {
+    const promoCode = validatePromoCode(code);
+    if (promoCode) {
+      setAppliedPromo(code);
+      setPromoDiscount(promoCode.discount);
+      showPromoNotification('success', `Промокод "${code}" применен!`, promoCode.discount);
+    } else {
+      showPromoNotification('error', `Промокод "${code}" недействителен`);
+    }
+  };
+
+  const handlePeriodChange = (period: '1month' | '3months' | '1year') => {
+    setSelectedPeriod(period);
+    if (period === '1year') {
+      setIsPromoModalOpen(true);
+    }
   };
 
   const handlePurchase = (plan: Plan) => {
@@ -118,6 +148,10 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
 
   return (
     <section id="pricing" className="section bg-gray-900">
+      <PromoNotificationContainer
+        notifications={promoNotifications}
+        onRemove={removePromoNotification}
+      />
       <div className="container-custom">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
@@ -130,7 +164,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
           {/* Period Selector with fixed discount badges */}
           <div className="inline-flex bg-gray-800 rounded-lg p-1 shadow-md relative">
             <button
-              onClick={() => setSelectedPeriod('1month')}
+              onClick={() => handlePeriodChange('1month')}
               className={`px-6 py-2 rounded-md font-medium transition-all ${
                 selectedPeriod === '1month'
                   ? 'bg-orange-500 text-white shadow-md'
@@ -140,7 +174,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
               1 месяц
             </button>
             <button
-              onClick={() => setSelectedPeriod('3months')}
+              onClick={() => handlePeriodChange('3months')}
               className={`px-6 py-2 rounded-md font-medium transition-all ${
                 selectedPeriod === '3months'
                   ? 'bg-orange-500 text-white shadow-md'
@@ -150,7 +184,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
               3 месяца
             </button>
             <button
-              onClick={() => setSelectedPeriod('1year')}
+              onClick={() => handlePeriodChange('1year')}
               className={`px-6 py-2 rounded-md font-medium transition-all ${
                 selectedPeriod === '1year'
                   ? 'bg-orange-500 text-white shadow-md'
@@ -205,6 +239,11 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
 
                 <div className="text-center mb-6">
                   <div className="flex items-center justify-center mb-2">
+                    {promoDiscount > 0 && (
+                      <span className="text-2xl font-bold text-gray-500 line-through mr-2">
+                        {getOriginalPrice(plan.basePrice)}₽
+                      </span>
+                    )}
                     <span className="text-4xl font-bold text-white">
                       {calculatePrice(plan.basePrice)}₽
                     </span>
@@ -212,6 +251,13 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
                   <p className="text-gray-400">
                     за {getPeriodLabel()}
                   </p>
+                  {appliedPromo && promoDiscount > 0 && (
+                    <div className="flex items-center justify-center gap-2 mt-2">
+                      <span className="bg-green-500/20 text-green-400 px-2 py-1 rounded-full text-sm font-medium">
+                        Промокод: {appliedPromo} (-{promoDiscount}%)
+                      </span>
+                    </div>
+                  )}
                   {getDiscount() > 0 && (
                     <p className="text-orange-400 font-medium">
                       Экономия {getDiscount()}%
@@ -249,6 +295,12 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
           price={calculatePrice(selectedPlan.basePrice)}
         />
       )}
+
+      <PromoCodeModal
+        isOpen={isPromoModalOpen}
+        onClose={() => setIsPromoModalOpen(false)}
+        onApplyPromo={handleApplyPromo}
+      />
     </section>
   );
 };
