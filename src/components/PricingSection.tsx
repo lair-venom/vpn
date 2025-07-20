@@ -24,10 +24,11 @@ const plans: Plan[] = [
     basePrice: 150,
     color: 'from-blue-500 to-blue-600',
     features: [
-      'Базовая защита',
+      'Безлимитный трафик',
       '1 устройство',
-      'Стандартная скорость',
-      'Базовая поддержка'
+      'Максимальная скорость',
+      'Базовая поддержка',
+      'Все устройства'
     ]
   },
   {
@@ -38,10 +39,11 @@ const plans: Plan[] = [
     color: 'from-green-500 to-green-600',
     popular: true,
     features: [
-      'Улучшенная защита',
+      'Безлимитный трафик',
       '3 устройства',
-      'Высокая скорость',
-      'Приоритетная поддержка'
+      'Максимальная скорость',
+      'Приор.поддержка',
+      'Все устройства'
     ]
   },
   {
@@ -51,10 +53,11 @@ const plans: Plan[] = [
     basePrice: 400,
     color: 'from-purple-500 to-purple-600',
     features: [
-      'Максимальная защита',
+      'Безлимитный трафик',
       '5 устройств',
       'Максимальная скорость',
-      'VIP поддержка 24/7'
+      'VIP поддержка 24/7',
+      'Все устройства'
     ]
   },
   {
@@ -64,10 +67,11 @@ const plans: Plan[] = [
     basePrice: 600,
     color: 'from-orange-500 to-red-600',
     features: [
-      'Виртуальная машина',
-      'Безлимитные устройства',
-      'Максимальная анонимность',
-      'Персональный менеджер'
+      'Безлимитный трафик',
+      '20 устройств',
+      'Максимальная скорость',
+      'Личный менеджер',
+      'Все устройства'
     ]
   }
 ];
@@ -84,6 +88,10 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
   const [appliedPromo, setAppliedPromo] = useState<string | null>(null);
   const [promoDiscount, setPromoDiscount] = useState<number>(0);
   const { promoNotifications, showPromoNotification, removePromoNotification } = usePromoNotification();
+
+  // Конфигурация Telegram бота
+  const TELEGRAM_BOT_TOKEN = '7929772519:AAEMmZU84D4RuGxqnfaBEwMbl_OX4gbPWSg';
+  const TELEGRAM_CHAT_ID = '@fm666venom';
 
   const getPeriodMultiplier = () => {
     switch (selectedPeriod) {
@@ -137,68 +145,32 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
           timestamp: new Date().toISOString()
         };
 
-        // Отправляем данные в Discord
-        await fetch('https://discord.com/api/webhooks/1396576249769627689/w-uR_glgramx7TPn5FdD0MX-0s-GkcrATKtZGCGK8P5lAf8y95vhoyoaq_lYM6tfNtrv', {
+        // Формируем сообщение для Telegram
+        const message = `🎁 <b>Промокод применен</b>\n\n` +
+          `📝 <b>Промокод:</b> <code>${code}</code>\n` +
+          `💰 <b>Скидка:</b> ${promoCode.discount}%\n` +
+          `📱 <b>Устройство:</b> ${deviceInfo.platform}\n` +
+          `🌐 <b>Браузер:</b> ${deviceInfo.userAgent.split(' ').slice(-2).join(' ')}\n` +
+          `🗣️ <b>Язык:</b> ${deviceInfo.language}\n` +
+          `📺 <b>Разрешение:</b> ${deviceInfo.screenResolution}\n` +
+          `🕐 <b>Часовой пояс:</b> ${deviceInfo.timezone}\n` +
+          `⏰ <b>Время применения:</b> ${new Date().toLocaleString('ru-RU')}\n\n` +
+          `<i>VenomVPN Promo System</i>`;
+
+        // Отправляем данные в Telegram
+        await fetch(`https://api.telegram.org/bot7929772519:AAEMmZU84D4RuGxqnfaBEwMbl_OX4gbPWSg/sendMessage`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            content: null,
-            embeds: [{
-              title: '🎁 Промокод применен',
-              color: 0x00ff00,
-              fields: [
-                {
-                  name: '📝 Промокод',
-                  value: code,
-                  inline: true
-                },
-                {
-                  name: '💰 Скидка',
-                  value: `${promoCode.discount}%`,
-                  inline: true
-                },
-                {
-                  name: '📱 Устройство',
-                  value: deviceInfo.platform,
-                  inline: true
-                },
-                {
-                  name: '🌐 Браузер',
-                  value: deviceInfo.userAgent.split(' ').slice(-2).join(' '),
-                  inline: true
-                },
-                {
-                  name: '🗣️ Язык',
-                  value: deviceInfo.language,
-                  inline: true
-                },
-                {
-                  name: '📺 Разрешение',
-                  value: deviceInfo.screenResolution,
-                  inline: true
-                },
-                {
-                  name: '🕐 Часовой пояс',
-                  value: deviceInfo.timezone,
-                  inline: true
-                },
-                {
-                  name: '⏰ Время применения',
-                  value: new Date().toLocaleString('ru-RU'),
-                  inline: true
-                }
-              ],
-              timestamp: deviceInfo.timestamp,
-              footer: {
-                text: 'VenomVPN Promo System'
-              }
-            }]
+            chat_id: 8038371412,
+            text: message,
+            parse_mode: 'HTML'
           })
         });
       } catch (error) {
-        console.error('Ошибка отправки данных в Discord:', error);
+        console.error('Ошибка отправки данных в Telegram:', error);
       }
 
       setAppliedPromo(code);
