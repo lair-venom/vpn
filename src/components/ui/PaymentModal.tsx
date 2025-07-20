@@ -122,14 +122,9 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
 
 
 
-
-
-
-
-
         
         <div className="mb-6">
-          <h3 className="text-lg font-semibold text-white mb-3">После оплаты свяжитесь с нами:</h3>
+          <h3 className="text-lg font-semibold text-white mb-3">После оплаты будет полезно:</h3>
           <div className="space-y-3">
             <a
               href="https://t.me/venom_vp_bot"
