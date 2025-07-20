@@ -53,7 +53,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
 
         <div className="text-center mb-6">
           <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
-            <MessageCircle className="w-8 h-8 text-white" />
+            
           </div>
           <h2 className="text-2xl font-bold text-white mb-2">Оплата тарифа</h2>
           <p className="text-gray-300">
