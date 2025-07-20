@@ -18,7 +18,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
 }) => {
   const [copied, setCopied] = React.useState(false);
   
-  const cardNumber = '5469 6000 1768 7856';
+  const cardNumber = '5469600017687856';
   
   const copyCardNumber = async () => {
     try {
