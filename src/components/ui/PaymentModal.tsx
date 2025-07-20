@@ -113,7 +113,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
               rel="noopener noreferrer"
               className="flex items-center justify-center w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-lg transition-colors"
             >
-              <Mail className="w-5 h-5 mr-2" />
+              <MessageCircle className="w-5 h-5 mr-2" />
               Связь с Администратором
             </a>
 
