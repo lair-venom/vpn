@@ -138,7 +138,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
               className="flex items-center justify-center w-full bg-gray-600 hover:bg-gray-500 text-white py-3 px-4 rounded-lg transition-colors"
             >
 
-              Telegram: @venom_vp_bot
+              Telegram Bot
             </a>
             <a
               href="https://discord.gg/eXJMRkupyA"
