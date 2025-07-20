@@ -63,7 +63,6 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
 
         <div className="bg-gray-700 rounded-xl p-4 mb-6">
           <div className="flex justify-between items-center mb-3">
-            <span className="text-gray-300">Тариф:</span>
             <span className="font-semibold text-white">{planName}</span>
           </div>
           <div className="flex justify-between items-center mb-3">
