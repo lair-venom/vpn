@@ -10,19 +10,19 @@ export interface PromoCode {
 
 export const promoCodes: PromoCode[] = [
   {
-    code: "FRIEND15",
+    code: "SKOV",
     discount: 15,
     description: "Скидка от друга",
     isActive: true
   },
   {
-    code: "WELCOME15",
+    code: "Venom",
     discount: 15,
     description: "Приветственная скидка",
     isActive: true
   },
   {
-    code: "SAVE15",
+    code: "Lair",
     discount: 15,
     description: "Экономия 15%",
     isActive: true
