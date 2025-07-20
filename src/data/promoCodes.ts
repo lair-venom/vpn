@@ -11,7 +11,7 @@ export interface PromoCode {
 export const promoCodes: PromoCode[] = [
   {
     code: "SKOV",
-    discount: 15,
+    discount: 25,
     description: "Скидка от друга",
     isActive: true
   },
