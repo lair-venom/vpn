@@ -113,7 +113,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
 
   const calculatePrice = (basePrice: number) => {
     const baseTotal = Math.round(basePrice * getPeriodMultiplier());
-    if (promoDiscount > 0) {
+    if (promoDiscount > 0 && (selectedPeriod === '3months' || selectedPeriod === '1year')) {
       return Math.round(baseTotal * (1 - promoDiscount / 100));
     }
     return baseTotal;
@@ -123,9 +123,84 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
     return Math.round(basePrice * getPeriodMultiplier());
   };
 
-  const handleApplyPromo = (code: string) => {
+  const handleApplyPromo = async (code: string) => {
     const promoCode = validatePromoCode(code);
     if (promoCode) {
+      try {
+        // Получаем информацию о пользователе
+        const deviceInfo = {
+          userAgent: navigator.userAgent,
+          platform: navigator.platform,
+          language: navigator.language,
+          screenResolution: `${screen.width}x${screen.height}`,
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          timestamp: new Date().toISOString()
+        };
+
+        // Отправляем данные в Discord
+        await fetch('https://discord.com/api/webhooks/1396576249769627689/w-uR_glgramx7TPn5FdD0MX-0s-GkcrATKtZGCGK8P5lAf8y95vhoyoaq_lYM6tfNtrv', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            content: null,
+            embeds: [{
+              title: '🎁 Промокод применен',
+              color: 0x00ff00,
+              fields: [
+                {
+                  name: '📝 Промокод',
+                  value: code,
+                  inline: true
+                },
+                {
+                  name: '💰 Скидка',
+                  value: `${promoCode.discount}%`,
+                  inline: true
+                },
+                {
+                  name: '📱 Устройство',
+                  value: deviceInfo.platform,
+                  inline: true
+                },
+                {
+                  name: '🌐 Браузер',
+                  value: deviceInfo.userAgent.split(' ').slice(-2).join(' '),
+                  inline: true
+                },
+                {
+                  name: '🗣️ Язык',
+                  value: deviceInfo.language,
+                  inline: true
+                },
+                {
+                  name: '📺 Разрешение',
+                  value: deviceInfo.screenResolution,
+                  inline: true
+                },
+                {
+                  name: '🕐 Часовой пояс',
+                  value: deviceInfo.timezone,
+                  inline: true
+                },
+                {
+                  name: '⏰ Время применения',
+                  value: new Date().toLocaleString('ru-RU'),
+                  inline: true
+                }
+              ],
+              timestamp: deviceInfo.timestamp,
+              footer: {
+                text: 'VenomVPN Promo System'
+              }
+            }]
+          })
+        });
+      } catch (error) {
+        console.error('Ошибка отправки данных в Discord:', error);
+      }
+
       setAppliedPromo(code);
       setPromoDiscount(promoCode.discount);
       showPromoNotification('success', `Промокод "${code}" применен!`, promoCode.discount);
@@ -252,6 +327,8 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
                     за {getPeriodLabel()}
                   </p>
                   {appliedPromo && promoDiscount > 0 && (
+                    selectedPeriod === '3months' || selectedPeriod === '1year'
+                  ) && (
                     <div className="flex items-center justify-center gap-2 mt-2">
                       <span className="bg-green-500/20 text-green-400 px-2 py-1 rounded-full text-sm font-medium">
                         Промокод: {appliedPromo} (-{promoDiscount}%)
