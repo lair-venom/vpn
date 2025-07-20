@@ -111,7 +111,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
               href="https://t.me/@fm666venom"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center w-full bg-gray-600 hover:bg-gray-500 text-white py-3 px-4 rounded-lg transition-colors"
+              className="flex items-center justify-center w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-lg transition-colors"
             >
               <Mail className="w-5 h-5 mr-2" />
               Связь с Администратором
