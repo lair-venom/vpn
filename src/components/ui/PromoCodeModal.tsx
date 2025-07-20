@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { X, Gift, Users, Percent } from 'lucide-react';
+import { X, Gift, Users, Percent, XCircle } from 'lucide-react';
 
 interface PromoCodeModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onApplyPromo: (code: string) => void;
+  onApplyPromo: (code: string) => Promise<void>;
 }
 
 const PromoCodeModal: React.FC<PromoCodeModalProps> = ({
@@ -13,14 +13,22 @@ const PromoCodeModal: React.FC<PromoCodeModalProps> = ({
   onApplyPromo
 }) => {
   const [promoCode, setPromoCode] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (promoCode.trim()) {
-      onApplyPromo(promoCode.trim());
+      setIsSubmitting(true);
+      await onApplyPromo(promoCode.trim());
+      setIsSubmitting(false);
       setPromoCode('');
       onClose();
     }
+  };
+
+  const handleNoPromo = () => {
+    setPromoCode('');
+    onClose();
   };
 
   if (!isOpen) return null;
@@ -89,10 +97,19 @@ const PromoCodeModal: React.FC<PromoCodeModalProps> = ({
 
           <button
             type="submit"
-            disabled={!promoCode.trim()}
-            className="w-full btn btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={!promoCode.trim() || isSubmitting}
+            className="w-full btn btn-primary disabled:opacity-50 disabled:cursor-not-allowed mb-3"
           >
-            Применить промокод
+            {isSubmitting ? 'Применение...' : 'Применить промокод'}
+          </button>
+          
+          <button
+            type="button"
+            onClick={handleNoPromo}
+            className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-lg transition-colors border border-gray-600 hover:border-gray-500"
+          >
+            <XCircle className="w-4 h-4" />
+            Промокода нету
           </button>
         </form>
       </div>
