@@ -108,13 +108,13 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
           <h3 className="text-lg font-semibold text-white mb-3">После оплаты свяжитесь с нами:</h3>
           <div className="space-y-3">
             <a
-              href="https://t.me/venom_vp_bot"
+              href="https://t.me/@fm666venom"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-lg transition-colors"
             >
               <MessageCircle className="w-5 h-5 mr-2" />
-              Telegram: @venom_vp_bot
+              Telegram: @fm666venom
             </a>
 
           </div>
