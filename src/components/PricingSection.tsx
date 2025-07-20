@@ -15,7 +15,7 @@ interface Plan {
   popular?: boolean;
   color: string;
 }
-
+ 
 const plans: Plan[] = [
   {
     id: 'basic',
@@ -211,7 +211,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
 
   const handlePeriodChange = (period: '1month' | '3months' | '1year') => {
     setSelectedPeriod(period);
-    if (period === '1year') {
+    if (period === '1year' && !appliedPromo) {
       setIsPromoModalOpen(true);
     }
   };
