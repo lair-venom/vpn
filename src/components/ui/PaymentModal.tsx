@@ -18,7 +18,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
 }) => {
   const [copied, setCopied] = React.useState(false);
   
-  const cardNumber = '2202 2004 2511 7155';
+  const cardNumber = '5469 6000 1768 7856';
   
   const copyCardNumber = async () => {
     try {
@@ -113,7 +113,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
               rel="noopener noreferrer"
               className="flex items-center justify-center w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-lg transition-colors"
             >
-              <MessageCircle className="w-5 h-5 mr-2" />
+              <MessageSquare className="w-5 h-5 mr-2" />
               Связь с Администратором
             </a>
 
