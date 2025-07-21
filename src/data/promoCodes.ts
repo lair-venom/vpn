@@ -29,7 +29,7 @@ export const promoCodes: PromoCode[] = [
   },
     {
     code: "love",
-    discount: 15,
+    discount: 100,
     description: "Приветственная скидка",
     isActive: true
   },
