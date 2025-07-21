@@ -16,7 +16,25 @@ export const promoCodes: PromoCode[] = [
     isActive: true
   },
   {
-    code: "Venom",
+    code: "DANDY",
+    discount: 15,
+    description: "Приветственная скидка",
+    isActive: true
+  },
+  {
+    code: "pasha",
+    discount: 15,
+    description: "Приветственная скидка",
+    isActive: true
+  },
+    {
+    code: "love",
+    discount: 15,
+    description: "Приветственная скидка",
+    isActive: true
+  },
+    {
+    code: "Andrey",
     discount: 15,
     description: "Приветственная скидка",
     isActive: true
