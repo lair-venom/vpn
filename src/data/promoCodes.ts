@@ -40,8 +40,14 @@ export const promoCodes: PromoCode[] = [
     isActive: true
   },
     {
-    code: "love",
-    discount: 100,
+    code: "Kirill",
+    discount: 15,
+    description: "Приветственная скидка",
+    isActive: true
+  },
+    {
+    code: "Dmitry",
+    discount: 15,
     description: "Приветственная скидка",
     isActive: true
   },
