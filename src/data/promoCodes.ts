@@ -33,6 +33,12 @@ export const promoCodes: PromoCode[] = [
     description: "Приветственная скидка",
     isActive: true
   },
+  {
+    code: "Liza",
+    discount: 15,
+    description: "Приветственная скидка",
+    isActive: true
+  },
     {
     code: "love",
     discount: 100,
