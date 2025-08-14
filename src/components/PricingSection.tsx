@@ -85,13 +85,19 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [isPromoModalOpen, setIsPromoModalOpen] = useState(false);
+  const [showTrialForm, setShowTrialForm] = useState(false);
+  const [trialData, setTrialData] = useState({
+    telegram: '',
+    source: ''
+  });
+  const [isSubmittingTrial, setIsSubmittingTrial] = useState(false);
   const [appliedPromo, setAppliedPromo] = useState<string | null>(null);
   const [promoDiscount, setPromoDiscount] = useState<number>(0);
   const { promoNotifications, showPromoNotification, removePromoNotification } = usePromoNotification();
 
   // Конфигурация Telegram бота
   const TELEGRAM_BOT_TOKEN = '7929772519:AAEMmZU84D4RuGxqnfaBEwMbl_OX4gbPWSg';
-  const TELEGRAM_CHAT_ID = '@fm666venom';
+  const TELEGRAM_CHAT_ID = '8038371412';
 
   const getPeriodMultiplier = () => {
     switch (selectedPeriod) {
@@ -183,15 +189,76 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
 
   const handlePeriodChange = (period: '1month' | '3months' | '1year') => {
     setSelectedPeriod(period);
-    if (period === '1year' && !appliedPromo) {
-      setIsPromoModalOpen(true);
-    }
   };
 
   const handlePurchase = (plan: Plan) => {
     setSelectedPlan(plan);
     setIsPaymentModalOpen(true);
   };
+
+  const handleTrialSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!trialData.telegram.trim() || !trialData.source) return;
+
+    setIsSubmittingTrial(true);
+    
+    try {
+      // Получаем информацию о пользователе
+      const deviceInfo = {
+        userAgent: navigator.userAgent,
+        platform: navigator.platform,
+        language: navigator.language,
+        screenResolution: `${screen.width}x${screen.height}`,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        timestamp: new Date().toISOString()
+      };
+
+      // Формируем сообщение для Telegram
+      const message = `🆓 <b>Заявка на тестовый период</b>\n\n` +
+        `📱 <b>Telegram:</b> ${trialData.telegram}\n` +
+        `📢 <b>Откуда узнали:</b> ${trialData.source}\n\n` +
+        `<b>Информация об устройстве:</b>\n` +
+        `📱 <b>Устройство:</b> ${deviceInfo.platform}\n` +
+        `🌐 <b>Браузер:</b> ${deviceInfo.userAgent.split(' ').slice(-2).join(' ')}\n` +
+        `🗣️ <b>Язык:</b> ${deviceInfo.language}\n` +
+        `📺 <b>Разрешение:</b> ${deviceInfo.screenResolution}\n` +
+        `🕐 <b>Часовой пояс:</b> ${deviceInfo.timezone}\n` +
+        `⏰ <b>Время подачи:</b> ${new Date().toLocaleString('ru-RU')}\n\n` +
+        `<i>VenomVPN Trial System</i>`;
+
+      // Отправляем данные в Telegram
+      await fetch(`https://api.telegram.org/bot7929772519:AAEMmZU84D4RuGxqnfaBEwMbl_OX4gbPWSg/sendMessage`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          chat_id: 8038371412,
+          text: message,
+          parse_mode: 'HTML'
+        })
+      });
+
+      showNotification('success', 'Заявка на тестовый период отправлена! Мы свяжемся с вами в ближайшее время.');
+      setTrialData({ telegram: '', source: '' });
+      setShowTrialForm(false);
+    } catch (error) {
+      showNotification('error', 'Произошла ошибка при отправке заявки. Пожалуйста, попробуйте позже.');
+    } finally {
+      setIsSubmittingTrial(false);
+    }
+  };
+
+  const sourceOptions = [
+    'YouTube',
+    'Telegram',
+    'Discord',
+    'ВКонтакте',
+    'Друзья/знакомые',
+    'Поисковые системы',
+    'Реклама',
+    'Другое'
+  ];
 
   return (
     <section id="pricing" className="section bg-gray-900">
@@ -209,7 +276,8 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
           </p>
           
           {/* Period Selector with fixed discount badges */}
-          <div className="inline-flex bg-gray-800 rounded-lg p-1 shadow-md relative">
+          <div className="flex flex-col items-center gap-4">
+            <div className="inline-flex bg-gray-800 rounded-lg p-1 shadow-md relative">
             <button
               onClick={() => handlePeriodChange('1month')}
               className={`px-6 py-2 rounded-md font-medium transition-all ${
@@ -257,9 +325,102 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
               -30%
             </span>
           </div>
+
+            {/* Дополнительные кнопки */}
+            <div className="flex gap-4">
+              <button
+                onClick={() => setIsPromoModalOpen(true)}
+                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5 5a3 3 0 015-2.236A3 3 0 0114.83 6H16a2 2 0 110 4h-5V9a1 1 0 10-2 0v1H4a2 2 0 110-4h1.17C5.06 5.687 5 5.35 5 5zm4 1V5a1 1 0 10-1 1h1zm3 0a1 1 0 10-1-1v1h1z" clipRule="evenodd" />
+                </svg>
+                Промокод
+              </button>
+              
+              <button
+                onClick={() => setShowTrialForm(!showTrialForm)}
+                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                Тест на 1 день
+              </button>
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {showTrialForm ? (
+          <div className="max-w-md mx-auto">
+            <div className="bg-gray-800 border border-gray-700 rounded-2xl shadow-lg p-8">
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <h2 className="text-2xl font-bold text-white mb-2">Тестовый период</h2>
+                <p className="text-gray-300">
+                  Получите бесплатный доступ на 1 день
+                </p>
+              </div>
+
+              <form onSubmit={handleTrialSubmit} className="space-y-6">
+                <div>
+                  <label htmlFor="telegram" className="block text-sm font-medium text-gray-300 mb-2">
+                    Ваш Telegram
+                  </label>
+                  <input
+                    type="text"
+                    id="telegram"
+                    value={trialData.telegram}
+                    onChange={(e) => setTrialData(prev => ({ ...prev, telegram: e.target.value }))}
+                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:border-green-500 text-white placeholder-gray-400"
+                    placeholder="@username или +7XXXXXXXXXX"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="source" className="block text-sm font-medium text-gray-300 mb-2">
+                    Откуда вы узнали о нас?
+                  </label>
+                  <select
+                    id="source"
+                    value={trialData.source}
+                    onChange={(e) => setTrialData(prev => ({ ...prev, source: e.target.value }))}
+                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:border-green-500 text-white"
+                    required
+                  >
+                    <option value="">Выберите источник</option>
+                    {sourceOptions.map((option) => (
+                      <option key={option} value={option}>{option}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="flex gap-3">
+                  <button
+                    type="submit"
+                    disabled={isSubmittingTrial}
+                    className="flex-1 bg-green-500 hover:bg-green-600 text-white py-3 px-4 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSubmittingTrial ? 'Отправка...' : 'Получить тест'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowTrialForm(false)}
+                    className="px-4 py-3 bg-gray-600 hover:bg-gray-500 text-white rounded-lg font-medium transition-colors"
+                  >
+                    Отмена
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {plans.map((plan) => (
             <div
               key={plan.id}
@@ -333,6 +494,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
             </div>
           ))}
         </div>
+        )}
       </div>
 
       {selectedPlan && (
