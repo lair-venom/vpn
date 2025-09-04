@@ -332,8 +332,13 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
                 onClick={() => setIsPromoModalOpen(true)}
                 className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg"
               >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M5 5a3 3 0 015-2.236A3 3 0 0114.83 6H16a2 2 0 110 4h-5V9a1 1 0 10-2 0v1H4a2 2 0 110-4h1.17C5.06 5.687 5 5.35 5 5zm4 1V5a1 1 0 10-1 1h1zm3 0a1 1 0 10-1-1v1h1z" clipRule="evenodd" />
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  <path d="M20.5 6c.28 0 .5-.22.5-.5s-.22-.5-.5-.5h-2c-.28 0-.5.22-.5.5s.22.5.5.5h2zm-1 2c.28 0 .5-.22.5-.5s-.22-.5-.5-.5h-1c-.28 0-.5.22-.5.5s.22.5.5.5h1z"/>
+                  <path d="M12 7l-1.5-1.5L9 7l1.5 1.5L12 7zm0 10l-1.5-1.5L9 17l1.5 1.5L12 17z"/>
+                  <path d="M7 12l-1.5-1.5L4 12l1.5 1.5L7 12zm10 0l-1.5-1.5L15 12l1.5 1.5L17 12z"/>
+                  <rect x="10" y="10" width="4" height="4" rx="1"/>
+                  <path d="M8 4l1 1-1 1-1-1 1-1zm8 0l1 1-1 1-1-1 1-1zm0 16l1-1-1-1-1 1 1 1zm-8 0l1-1-1-1-1 1 1 1z"/>
                 </svg>
                 Промокод
               </button>
