@@ -8,7 +8,6 @@ import VideoSection from './components/VideoSection';
 import DownloadLinks from './components/DownloadLinks';
 import Footer from './components/Footer';
 import NotificationContainer from './components/ui/NotificationContainer';
-import SmokeEffect from './components/SmokeEffect';
 import { useNotification } from './hooks/useNotification';
 
 function App() {
@@ -43,7 +42,6 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
-      <SmokeEffect />
       <NotificationContainer
         notifications={notifications}
         onRemove={removeNotification}
