@@ -20,9 +20,9 @@ export const userProfiles: UserProfile[] = [
     expirationDate: "2024-04-15T10:30:00Z",
     promoCode: "SKOV",
     plan: "Продвинутый",
-    status: "active",
+    status: "expired",
     deviceCount: 2,
-    maxDevices: 3,
+    maxDevices: 2,
     username: "TestUser1"
   },
   {
