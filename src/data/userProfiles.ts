@@ -21,8 +21,8 @@ export const userProfiles: UserProfile[] = [
     promoCode: "VENOM",
     plan: "Создатель",
     status: "active",
-    deviceCount: ♾️,
-    maxDevices: ♾️,
+    deviceCount: 666,
+    maxDevices: 666,
     username: "Venom"
   },
    {
