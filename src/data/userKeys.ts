@@ -10,10 +10,10 @@ export interface UserKey {
 
 export const userKeys: UserKey[] = [
   {
-    key: "VPN-USER-001",
-    userId: "user_001",
+    key: "vm",
+    userId: "admin_001",
     isActive: true,
-    description: "Тестовый пользователь 1"
+    description: "Пользователь 1"
   },
   {
     key: "VPN-USER-002", 
