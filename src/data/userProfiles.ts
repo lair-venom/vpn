@@ -18,12 +18,12 @@ export const userProfiles: UserProfile[] = [
     userId: "user_001",
     connectionDate: "2024-01-15T10:30:00Z",
     expirationDate: "2024-04-15T10:30:00Z",
-    promoCode: "SKOV",
-    plan: "Продвинутый",
-    status: "suspended",
-    deviceCount: 2,
-    maxDevices: 2,
-    username: "TestUser1"
+    promoCode: "VENOM",
+    plan: "Кибер VM",
+    status: "active",
+    deviceCount: 200,
+    maxDevices: 200,
+    username: "Venom"
   },
   {
     userId: "user_002",
