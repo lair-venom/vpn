@@ -48,15 +48,15 @@ export const userProfiles: UserProfile[] = [
     username: "DANDY"
   },
     {
-    userId: "vm",
+    userId: "661396226",
     connectionDate: "2024-01-15T10:30:00Z",
     expirationDate: "2024-04-15T10:30:00Z",
-    promoCode: "VENOM",
-    plan: "Кибер VM",
+    promoCode: "",
+    plan: "Стандартный",
     status: "active",
-    deviceCount: 200,
-    maxDevices: 200,
-    username: "Venom"
+    deviceCount: 1,
+    maxDevices: 1,
+    username: "Monika"
   },
     {
     userId: "vm",
