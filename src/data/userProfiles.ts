@@ -14,7 +14,7 @@ export const userProfiles: UserProfile[] = [
   {
     userId: "vm",
     connectionDate: "2024-01-15T10:30:00Z",
-    expirationDate: "2026-06-29T12:40:00Z",
+    expirationDate: "♾️",
     promoCode: "VENOM",
     plan: "Создатель",
     status: "active",
@@ -162,4 +162,20 @@ export const getUserProfile = (userId: string): UserProfile | null => {
 // Простая проверка на бесконечный срок
 export const isInfiniteExpiration = (expirationDate: string): boolean => {
   return expirationDate === "♾️";
+};
+
+// Безопасная проверка истечения срока
+export const isProfileExpired = (profile: UserProfile): boolean => {
+  if (isInfiniteExpiration(profile.expirationDate)) {
+    return false; // Бесконечный срок никогда не истекает
+  }
+  
+  try {
+    const expiration = new Date(profile.expirationDate);
+    const now = new Date();
+    return expiration <= now;
+  } catch (error) {
+    console.warn("Invalid date format:", profile.expirationDate);
+    return true; // Если дата невалидна, считаем истекшей
+  }
 };
