@@ -100,11 +100,9 @@ const LoginModal: React.FC<LoginModalProps> = ({
         </form>
 
         <div className="mt-6 p-4 bg-gray-700 rounded-lg">
-          <h3 className="text-sm font-medium text-white mb-2">Примеры ключей:</h3>
+          <h3 className="text-sm font-medium text-white mb-2">Информация:</h3>
           <div className="space-y-1 text-xs text-gray-400">
-            <p>• VPN-USER-001</p>
-            <p>• VPN-USER-002</p>
-            <p>• VPN-ADMIN-001</p>
+            <p>• При покупке VPN у вас появляется свой ключ для входа в профиль где расположена информация о вашем тарифе. КЛЮЧ содержится в названии вашего конфига. Пример: snk://support-Lair ключ у данной учетной запиcи Lair</p>
           </div>
         </div>
       </div>
