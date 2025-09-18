@@ -10,8 +10,8 @@ export interface UserKey {
 
 export const userKeys: UserKey[] = [
   {
-    key: "vm",
-    userId: "admin_001",
+    key: "lrvm",
+    userId: "vm",
     isActive: true,
     description: "Пользователь 1"
   },
