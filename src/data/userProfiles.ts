@@ -14,7 +14,7 @@ export const userProfiles: UserProfile[] = [
   {
     userId: "vm",
     connectionDate: "2024-01-15T10:30:00Z",
-    expirationDate: "♾️",
+    expirationDate: "2026-06-29T12:40:00Z",
     promoCode: "VENOM",
     plan: "Создатель",
     status: "active",
@@ -46,7 +46,7 @@ export const userProfiles: UserProfile[] = [
   },
     {
     userId: "661396226",
-    connectionDate: "2024-01-15T10:30:00Z",
+    connectionDate: "2025-07-27T10:30:00Z",
     expirationDate: "2024-04-15T10:30:00Z",
     promoCode: "",
     plan: "Стандартный",
