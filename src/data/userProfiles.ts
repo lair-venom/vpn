@@ -4,7 +4,7 @@
 export interface UserProfile {
   userId: string;
   connectionDate: string; // ISO date string
-  expirationDate: string; // ISO date string
+  expirationDate: string | null; // null = бесконечный срок
   promoCode?: string;
   plan: string;
   status: 'active' | 'expired' | 'suspended';
@@ -160,4 +160,15 @@ export const userProfiles: UserProfile[] = [
 
 export const getUserProfile = (userId: string): UserProfile | null => {
   return userProfiles.find(profile => profile.userId === userId) || null;
+};
+
+// Функция для проверки срока действия
+export const isProfileExpired = (profile: UserProfile): boolean => {
+  if (profile.expirationDate === null) {
+    return false; // Бесконечный срок никогда не истекает
+  }
+  
+  const expiration = new Date(profile.expirationDate);
+  const now = new Date();
+  return expiration <= now;
 };
