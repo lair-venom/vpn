@@ -1,10 +1,7 @@
-// Файл для управления профилями пользователей
-// Добавляйте новые профили в этот массив
-
 export interface UserProfile {
   userId: string;
   connectionDate: string; // ISO date string
-  expirationDate: string | null; // null = бесконечный срок
+  expirationDate: string | null; // null для бесконечного срока
   promoCode?: string;
   plan: string;
   status: 'active' | 'expired' | 'suspended';
@@ -12,6 +9,49 @@ export interface UserProfile {
   maxDevices: number;
   username: string;
 }
+
+// Безопасная функция парсинга даты
+const safeDateParse = (dateString: string | null): Date | null => {
+  if (dateString === null) return null;
+  
+  const date = new Date(dateString);
+  return isNaN(date.getTime()) ? null : date;
+};
+
+// Функция проверки истечения срока
+export const isProfileExpired = (profile: UserProfile): boolean => {
+  if (profile.expirationDate === null) {
+    return false; // Бесконечный срок никогда не истекает
+  }
+  
+  const expirationDate = safeDateParse(profile.expirationDate);
+  if (expirationDate === null) {
+    console.warn(`Invalid expiration date for user ${profile.userId}: ${profile.expirationDate}`);
+    return true; // Если дата невалидна, считаем истекшей
+  }
+  
+  const now = new Date();
+  return expirationDate <= now;
+};
+
+// Функция проверки активности профиля
+export const isProfileActive = (profile: UserProfile): boolean => {
+  return profile.status === 'active' && !isProfileExpired(profile);
+};
+
+// Функция форматирования даты для отображения
+export const formatExpirationDate = (expirationDate: string | null): string => {
+  if (expirationDate === null) return '♾️ Бессрочно';
+  
+  const date = safeDateParse(expirationDate);
+  if (date === null) return 'Неверная дата';
+  
+  return date.toLocaleDateString('ru-RU', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+};
 
 export const userProfiles: UserProfile[] = [
   {
@@ -162,13 +202,11 @@ export const getUserProfile = (userId: string): UserProfile | null => {
   return userProfiles.find(profile => profile.userId === userId) || null;
 };
 
-// Функция для проверки срока действия
-export const isProfileExpired = (profile: UserProfile): boolean => {
-  if (profile.expirationDate === null) {
-    return false; // Бесконечный срок никогда не истекает
-  }
-  
-  const expiration = new Date(profile.expirationDate);
-  const now = new Date();
-  return expiration <= now;
+// Дополнительные утилиты
+export const getActiveProfiles = (): UserProfile[] => {
+  return userProfiles.filter(isProfileActive);
+};
+
+export const getExpiredProfiles = (): UserProfile[] => {
+  return userProfiles.filter(profile => isProfileExpired(profile));
 };
