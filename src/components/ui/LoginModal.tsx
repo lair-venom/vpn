@@ -80,7 +80,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
                 setError('');
               }}
               className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:border-orange-500 text-white placeholder-gray-400 text-center font-mono text-lg"
-              placeholder="VPN-USER-XXX"
+              placeholder="*****"
               maxLength={20}
               required
             />
