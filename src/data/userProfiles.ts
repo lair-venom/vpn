@@ -15,7 +15,7 @@ export interface UserProfile {
 
 export const userProfiles: UserProfile[] = [
   {
-    userId: "user_001",
+    userId: "vm",
     connectionDate: "2024-01-15T10:30:00Z",
     expirationDate: "2024-04-15T10:30:00Z",
     promoCode: "VENOM",
