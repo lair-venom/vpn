@@ -161,9 +161,7 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 style={{ width: `${(profile.deviceCount / profile.maxDevices) * 100}%` }}
               ></div>
             </div>
-            <p className="text-xs text-gray-400 mt-2">
-              Доступно еще {profile.maxDevices - profile.deviceCount} устройств
-            </p>
+          
           </div>
         </div>
 
