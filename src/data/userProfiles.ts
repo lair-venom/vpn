@@ -1,7 +1,10 @@
+// Файл для управления профилями пользователей
+// Добавляйте новые профили в этот массив
+
 export interface UserProfile {
   userId: string;
   connectionDate: string; // ISO date string
-  expirationDate: string; // ISO date string или "♾️"
+  expirationDate: string; // ISO date string
   promoCode?: string;
   plan: string;
   status: 'active' | 'expired' | 'suspended';
@@ -14,7 +17,7 @@ export const userProfiles: UserProfile[] = [
   {
     userId: "vm",
     connectionDate: "2024-01-15T10:30:00Z",
-    expirationDate: "♾️",
+    expirationDate: "2024-01-15T10:30:00Z",
     promoCode: "VENOM",
     plan: "Создатель",
     status: "active",
@@ -46,8 +49,8 @@ export const userProfiles: UserProfile[] = [
   },
     {
     userId: "661396226",
-    connectionDate: "2025-07-27T10:30:00Z",
-    expirationDate: "2024-04-15T10:30:00Z",
+    connectionDate: "2025-07-21T10:30:00Z",
+    expirationDate: "2025-08-21T10:30:00Z",
     promoCode: "",
     plan: "Стандартный",
     status: "active",
@@ -157,25 +160,4 @@ export const userProfiles: UserProfile[] = [
 
 export const getUserProfile = (userId: string): UserProfile | null => {
   return userProfiles.find(profile => profile.userId === userId) || null;
-};
-
-// Простая проверка на бесконечный срок
-export const isInfiniteExpiration = (expirationDate: string): boolean => {
-  return expirationDate === "♾️";
-};
-
-// Безопасная проверка истечения срока
-export const isProfileExpired = (profile: UserProfile): boolean => {
-  if (isInfiniteExpiration(profile.expirationDate)) {
-    return false; // Бесконечный срок никогда не истекает
-  }
-  
-  try {
-    const expiration = new Date(profile.expirationDate);
-    const now = new Date();
-    return expiration <= now;
-  } catch (error) {
-    console.warn("Invalid date format:", profile.expirationDate);
-    return true; // Если дата невалидна, считаем истекшей
-  }
 };
