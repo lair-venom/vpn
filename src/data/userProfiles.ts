@@ -16,6 +16,116 @@ export interface UserProfile {
 export const userProfiles: UserProfile[] = [
   {
     userId: "vm",
+    connectionDate: "♾️",
+    expirationDate: "♾️",
+    promoCode: "VENOM",
+    plan: "Создатель",
+    status: "active",
+    deviceCount: ♾️,
+    maxDevices: ♾️,
+    username: "Venom"
+  },
+   {
+    userId: "473875379",
+    connectionDate: "2024-01-15T10:30:00Z",
+    expirationDate: "2026-06-29T12:40:00Z", 
+    promoCode: "Kirill",
+    plan: "Продвинутый",
+    status: "active",
+    deviceCount: 3,
+    maxDevices: 3,
+    username: "Kirill"
+  },
+    {
+    userId: "vm",
+    connectionDate: "2024-01-15T10:30:00Z",
+    expirationDate: "2024-04-15T10:30:00Z",
+    promoCode: "VENOM",
+    plan: "Кибер VM",
+    status: "active",
+    deviceCount: 200,
+    maxDevices: 200,
+    username: "Venom"
+  },
+    {
+    userId: "vm",
+    connectionDate: "2024-01-15T10:30:00Z",
+    expirationDate: "2024-04-15T10:30:00Z",
+    promoCode: "VENOM",
+    plan: "Кибер VM",
+    status: "active",
+    deviceCount: 200,
+    maxDevices: 200,
+    username: "Venom"
+  },
+    {
+    userId: "vm",
+    connectionDate: "2024-01-15T10:30:00Z",
+    expirationDate: "2024-04-15T10:30:00Z",
+    promoCode: "VENOM",
+    plan: "Кибер VM",
+    status: "active",
+    deviceCount: 200,
+    maxDevices: 200,
+    username: "Venom"
+  },
+    {
+    userId: "vm",
+    connectionDate: "2024-01-15T10:30:00Z",
+    expirationDate: "2024-04-15T10:30:00Z",
+    promoCode: "VENOM",
+    plan: "Кибер VM",
+    status: "active",
+    deviceCount: 200,
+    maxDevices: 200,
+    username: "Venom"
+  },
+    {
+    userId: "vm",
+    connectionDate: "2024-01-15T10:30:00Z",
+    expirationDate: "2024-04-15T10:30:00Z",
+    promoCode: "VENOM",
+    plan: "Кибер VM",
+    status: "active",
+    deviceCount: 200,
+    maxDevices: 200,
+    username: "Venom"
+  },
+    {
+    userId: "vm",
+    connectionDate: "2024-01-15T10:30:00Z",
+    expirationDate: "2024-04-15T10:30:00Z",
+    promoCode: "VENOM",
+    plan: "Кибер VM",
+    status: "active",
+    deviceCount: 200,
+    maxDevices: 200,
+    username: "Venom"
+  },
+    {
+    userId: "vm",
+    connectionDate: "2024-01-15T10:30:00Z",
+    expirationDate: "2024-04-15T10:30:00Z",
+    promoCode: "VENOM",
+    plan: "Кибер VM",
+    status: "active",
+    deviceCount: 200,
+    maxDevices: 200,
+    username: "Venom"
+  },
+    {
+    userId: "vm",
+    connectionDate: "2024-01-15T10:30:00Z",
+    expirationDate: "2024-04-15T10:30:00Z",
+    promoCode: "VENOM",
+    plan: "Кибер VM",
+    status: "active",
+    deviceCount: 200,
+    maxDevices: 200,
+    username: "Venom"
+  },
+    {
+    userId: "vm",
     connectionDate: "2024-01-15T10:30:00Z",
     expirationDate: "2024-04-15T10:30:00Z",
     promoCode: "VENOM",
