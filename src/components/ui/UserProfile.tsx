@@ -16,6 +16,9 @@ const UserProfile: React.FC<UserProfileProps> = ({
   onLogout
 }) => {
   const formatDate = (dateString: string) => {
+    if (dateString === 'infinite' || dateString === '∞') {
+      return '∞ Бесконечно';
+    }
     return new Date(dateString).toLocaleDateString('ru-RU', {
       year: 'numeric',
       month: 'long',
@@ -25,6 +28,19 @@ const UserProfile: React.FC<UserProfileProps> = ({
     });
   };
 
+  const formatDeviceCount = (current: number, max: number) => {
+    if (max === -1 || max === Infinity) {
+      return `${current} / ∞`;
+    }
+    return `${current} / ${max}`;
+  };
+
+  const getDeviceProgress = (current: number, max: number) => {
+    if (max === -1 || max === Infinity) {
+      return Math.min((current / 10) * 100, 100); // Показываем прогресс относительно 10 устройств для визуализации
+    }
+    return (current / max) * 100;
+  };
   const getStatusInfo = (status: string) => {
     switch (status) {
       case 'active':
@@ -152,15 +168,23 @@ const UserProfile: React.FC<UserProfileProps> = ({
                 <span className="text-gray-300 font-medium">Устройства</span>
               </div>
               <span className="text-white font-semibold">
-                {profile.deviceCount} / {profile.maxDevices}
+                {formatDeviceCount(profile.deviceCount, profile.maxDevices)}
               </span>
             </div>
-            <div className="w-full bg-gray-600 rounded-full h-2">
-              <div 
-                className="bg-orange-500 h-2 rounded-full transition-all duration-300"
-                style={{ width: `${(profile.deviceCount / profile.maxDevices) * 100}%` }}
-              ></div>
-            </div>
+            {profile.maxDevices !== -1 && profile.maxDevices !== Infinity ? (
+              <div className="w-full bg-gray-600 rounded-full h-2">
+                <div 
+                  className="bg-orange-500 h-2 rounded-full transition-all duration-300"
+                  style={{ width: `${getDeviceProgress(profile.deviceCount, profile.maxDevices)}%` }}
+                ></div>
+              </div>
+            ) : (
+              <div className="w-full bg-gray-600 rounded-full h-2">
+                <div className="bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-500 h-2 rounded-full animate-pulse">
+                  <div className="h-full bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-full animate-pulse"></div>
+                </div>
+              </div>
+            )}
           
           </div>
         </div>

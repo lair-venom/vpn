@@ -9,7 +9,7 @@ export interface UserProfile {
   plan: string;
   status: 'active' | 'expired' | 'suspended';
   deviceCount: number;
-  maxDevices: number;
+  maxDevices: number; // -1 or Infinity for unlimited
   username: string;
 }
 
@@ -17,12 +17,12 @@ export const userProfiles: UserProfile[] = [
   {
     userId: "vm",
     connectionDate: "2024-01-15T10:30:00Z",
-    expirationDate: "2024-01-15T10:30:00Z",
+    expirationDate: "infinite",
     promoCode: "VENOM",
     plan: "Создатель",
     status: "active",
     deviceCount: 666,
-    maxDevices: 666,
+    maxDevices: -1,
     username: "Venom"
   },
    {
@@ -58,83 +58,6 @@ export const userProfiles: UserProfile[] = [
     maxDevices: 1,
     username: "Monika"
   },
-    {
-    userId: "vm",
-    connectionDate: "2024-01-15T10:30:00Z",
-    expirationDate: "2024-04-15T10:30:00Z",
-    promoCode: "VENOM",
-    plan: "Кибер VM",
-    status: "active",
-    deviceCount: 200,
-    maxDevices: 200,
-    username: "Venom"
-  },
-    {
-    userId: "vm",
-    connectionDate: "2024-01-15T10:30:00Z",
-    expirationDate: "2024-04-15T10:30:00Z",
-    promoCode: "VENOM",
-    plan: "Кибер VM",
-    status: "active",
-    deviceCount: 200,
-    maxDevices: 200,
-    username: "Venom"
-  },
-    {
-    userId: "vm",
-    connectionDate: "2024-01-15T10:30:00Z",
-    expirationDate: "2024-04-15T10:30:00Z",
-    promoCode: "VENOM",
-    plan: "Кибер VM",
-    status: "active",
-    deviceCount: 200,
-    maxDevices: 200,
-    username: "Venom"
-  },
-    {
-    userId: "vm",
-    connectionDate: "2024-01-15T10:30:00Z",
-    expirationDate: "2024-04-15T10:30:00Z",
-    promoCode: "VENOM",
-    plan: "Кибер VM",
-    status: "active",
-    deviceCount: 200,
-    maxDevices: 200,
-    username: "Venom"
-  },
-    {
-    userId: "vm",
-    connectionDate: "2024-01-15T10:30:00Z",
-    expirationDate: "2024-04-15T10:30:00Z",
-    promoCode: "VENOM",
-    plan: "Кибер VM",
-    status: "active",
-    deviceCount: 200,
-    maxDevices: 200,
-    username: "Venom"
-  },
-    {
-    userId: "vm",
-    connectionDate: "2024-01-15T10:30:00Z",
-    expirationDate: "2024-04-15T10:30:00Z",
-    promoCode: "VENOM",
-    plan: "Кибер VM",
-    status: "active",
-    deviceCount: 200,
-    maxDevices: 200,
-    username: "Venom"
-  },
-    {
-    userId: "vm",
-    connectionDate: "2024-01-15T10:30:00Z",
-    expirationDate: "2024-04-15T10:30:00Z",
-    promoCode: "VENOM",
-    plan: "Кибер VM",
-    status: "active",
-    deviceCount: 200,
-    maxDevices: 200,
-    username: "Venom"
-  },
   {
     userId: "user_002",
     connectionDate: "2024-02-01T14:20:00Z", 
@@ -147,13 +70,13 @@ export const userProfiles: UserProfile[] = [
   },
   {
     userId: "admin_001",
-    connectionDate: "2024-01-01T00:00:00Z",
-    expirationDate: "2025-01-01T00:00:00Z",
+    connectionDate: "infinite",
+    expirationDate: "infinite",
     promoCode: "Lair",
     plan: "Кибер-VM",
     status: "active", 
     deviceCount: 5,
-    maxDevices: 20,
+    maxDevices: -1,
     username: "Administrator"
   }
 ];
