@@ -9,7 +9,6 @@ export interface UserProfile {
   plan: string;
   status: 'active' | 'expired' | 'suspended';
   deviceCount: number;
-  maxDevices: number; // -1 or Infinity for unlimited
   username: string;
 }
 
@@ -22,7 +21,6 @@ export const userProfiles: UserProfile[] = [
     plan: "Создатель",
     status: "active",
     deviceCount: 666,
-    maxDevices: -1,
     username: "Venom"
   },
    {
@@ -33,7 +31,6 @@ export const userProfiles: UserProfile[] = [
     plan: "Продвинутый",
     status: "active",
     deviceCount: 3,
-    maxDevices: 3,
     username: "Kirill"
   },
     {
@@ -44,7 +41,6 @@ export const userProfiles: UserProfile[] = [
     plan: "Продвинутый",
     status: "active",
     deviceCount: 3,
-    maxDevices: 3,
     username: "DANDY"
   },
     {
@@ -52,21 +48,30 @@ export const userProfiles: UserProfile[] = [
     connectionDate: "2025-07-21T10:30:00Z",
     expirationDate: "2025-08-21T10:30:00Z",
     promoCode: "",
-    plan: "Стандартный",
+    plan: "Базовый",
     status: "active",
     deviceCount: 1,
-    maxDevices: 1,
     username: "Monika"
   },
   {
-    userId: "user_002",
-    connectionDate: "2024-02-01T14:20:00Z", 
-    expirationDate: "2024-03-01T14:20:00Z",
+    userId: "889666596",
+    connectionDate: "2024-12-01T14:20:00Z", 
+    expirationDate: "2025-03-01T14:20:00Z",
+    promoCode: "Liza",
+    plan: "Премиум",
+    status: "active",
+    deviceCount: 5,
+    username: "Liza"
+  },
+  {
+    userId: "5515415353",
+    connectionDate: "2024-11-15T09:15:00Z",
+    expirationDate: "2025-02-15T09:15:00Z",
+    promoCode: "SKOV",
     plan: "Базовый",
-    status: "expired",
+    status: "active",
     deviceCount: 1,
-    maxDevices: 1,
-    username: "TestUser2"
+    username: "SKOV"
   },
   {
     userId: "admin_001",
@@ -75,8 +80,7 @@ export const userProfiles: UserProfile[] = [
     promoCode: "Lair",
     plan: "Кибер-VM",
     status: "active", 
-    deviceCount: 5,
-    maxDevices: -1,
+    deviceCount: 20,
     username: "Administrator"
   }
 ];

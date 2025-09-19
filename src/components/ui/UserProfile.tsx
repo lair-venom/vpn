@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Calendar, Gift, Shield, Activity, Smartphone, CheckCircle, Clock, AlertTriangle } from 'lucide-react';
+import { X, Calendar, Gift, Shield, Activity, Smartphone, CheckCircle, Clock, AlertTriangle, User, Crown, Zap } from 'lucide-react';
 import { UserProfile as UserProfileType } from '../../data/userProfiles';
 
 interface UserProfileProps {
@@ -28,19 +28,6 @@ const UserProfile: React.FC<UserProfileProps> = ({
     });
   };
 
-  const formatDeviceCount = (current: number, max: number) => {
-    if (max === -1 || max === Infinity) {
-      return `${current} / ∞`;
-    }
-    return `${current} / ${max}`;
-  };
-
-  const getDeviceProgress = (current: number, max: number) => {
-    if (max === -1 || max === Infinity) {
-      return Math.min((current / 10) * 100, 100); // Показываем прогресс относительно 10 устройств для визуализации
-    }
-    return (current / max) * 100;
-  };
   const getStatusInfo = (status: string) => {
     switch (status) {
       case 'active':
@@ -48,7 +35,8 @@ const UserProfile: React.FC<UserProfileProps> = ({
           text: 'Активен',
           color: 'text-green-400',
           bgColor: 'bg-green-500/20',
-          icon: <CheckCircle className="w-4 h-4" />,
+          borderColor: 'border-green-500/30',
+          icon: <CheckCircle className="w-5 h-5" />,
           animation: 'animate-pulse'
         };
       case 'expired':
@@ -56,7 +44,8 @@ const UserProfile: React.FC<UserProfileProps> = ({
           text: 'Истек',
           color: 'text-red-400',
           bgColor: 'bg-red-500/20',
-          icon: <AlertTriangle className="w-4 h-4" />,
+          borderColor: 'border-red-500/30',
+          icon: <AlertTriangle className="w-5 h-5" />,
           animation: ''
         };
       case 'suspended':
@@ -64,7 +53,8 @@ const UserProfile: React.FC<UserProfileProps> = ({
           text: 'Приостановлен',
           color: 'text-yellow-400',
           bgColor: 'bg-yellow-500/20',
-          icon: <Clock className="w-4 h-4" />,
+          borderColor: 'border-yellow-500/30',
+          icon: <Clock className="w-5 h-5" />,
           animation: 'animate-pulse'
         };
       default:
@@ -72,10 +62,31 @@ const UserProfile: React.FC<UserProfileProps> = ({
           text: 'Неизвестно',
           color: 'text-gray-400',
           bgColor: 'bg-gray-500/20',
-          icon: <Activity className="w-4 h-4" />,
+          borderColor: 'border-gray-500/30',
+          icon: <Activity className="w-5 h-5" />,
           animation: ''
         };
     }
+  };
+
+  const getPlanIcon = (plan: string) => {
+    if (plan.includes('Создатель') || plan.includes('Кибер-VM')) {
+      return <Crown className="w-6 h-6 text-purple-400" />;
+    }
+    if (plan.includes('Премиум') || plan.includes('Продвинутый')) {
+      return <Zap className="w-6 h-6 text-orange-400" />;
+    }
+    return <Shield className="w-6 h-6 text-blue-400" />;
+  };
+
+  const getPlanGradient = (plan: string) => {
+    if (plan.includes('Создатель') || plan.includes('Кибер-VM')) {
+      return 'from-purple-500 to-pink-600';
+    }
+    if (plan.includes('Премиум') || plan.includes('Продвинутый')) {
+      return 'from-orange-500 to-red-600';
+    }
+    return 'from-blue-500 to-cyan-600';
   };
 
   const statusInfo = getStatusInfo(profile.status);
@@ -88,115 +99,106 @@ const UserProfile: React.FC<UserProfileProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-gray-800 rounded-2xl max-w-md w-full p-6 relative animate-slide-in-bottom max-h-[90vh] overflow-y-auto custom-scrollbar">
+    <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl max-w-md w-full p-8 relative animate-slide-in-bottom max-h-[90vh] overflow-y-auto custom-scrollbar border border-gray-700 shadow-2xl">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+          className="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors p-2 hover:bg-gray-700 rounded-full"
         >
-          <X size={24} />
+          <X size={20} />
         </button>
 
-        <div className="text-center mb-6">
-          <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Shield className="w-8 h-8 text-white" />
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className={`w-20 h-20 bg-gradient-to-r ${getPlanGradient(profile.plan)} rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg ring-4 ring-gray-700`}>
+            <User className="w-10 h-10 text-white" />
           </div>
-          <h2 className="text-2xl font-bold text-white mb-2">Профиль VPN</h2>
-          <p className="text-gray-300">
-            {profile.username}
-          </p>
+          <h2 className="text-3xl font-bold text-white mb-2">{profile.username}</h2>
+          <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${statusInfo.bgColor} border ${statusInfo.borderColor} ${statusInfo.animation}`}>
+            <span className={statusInfo.color}>{statusInfo.icon}</span>
+            <span className={`font-semibold ${statusInfo.color}`}>{statusInfo.text}</span>
+          </div>
         </div>
 
-        <div className="space-y-4">
-          {/* Статус */}
-          <div className="bg-gray-700 rounded-xl p-4">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-300 font-medium">Статус</span>
-              <div className={`flex items-center gap-2 px-3 py-1 rounded-full ${statusInfo.bgColor} ${statusInfo.animation}`}>
-                <span className={statusInfo.color}>{statusInfo.icon}</span>
-                <span className={`font-medium ${statusInfo.color}`}>{statusInfo.text}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Тариф */}
-          <div className="bg-gray-700 rounded-xl p-4">
-            <div className="flex items-center justify-between">
-              <span className="text-gray-300 font-medium">Тариф</span>
-              <span className="text-white font-semibold">{profile.plan}</span>
-            </div>
-          </div>
-
-          {/* Даты */}
-          <div className="bg-gray-700 rounded-xl p-4 space-y-3">
-            <div className="flex items-start justify-between">
-              <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-orange-500" />
-                <span className="text-gray-300 font-medium">Дата подключения</span>
-              </div>
-              <span className="text-white text-sm text-right">{formatDate(profile.connectionDate)}</span>
-            </div>
-            <div className="border-t border-gray-600 pt-3">
-              <div className="flex items-start justify-between">
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-red-400" />
-                  <span className="text-gray-300 font-medium">Дата окончания</span>
-                </div>
-                <span className="text-white text-sm text-right">{formatDate(profile.expirationDate)}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Промокод */}
-          {profile.promoCode && (
-            <div className="bg-gray-700 rounded-xl p-4">
+        <div className="space-y-6">
+          {/* Plan Card */}
+          <div className={`bg-gradient-to-r ${getPlanGradient(profile.plan)} p-[1px] rounded-2xl`}>
+            <div className="bg-gray-800 rounded-2xl p-6">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Gift className="w-4 h-4 text-orange-500" />
-                  <span className="text-gray-300 font-medium">Промокод</span>
+                <div className="flex items-center gap-3">
+                  {getPlanIcon(profile.plan)}
+                  <div>
+                    <span className="text-gray-300 text-sm">Тариф</span>
+                    <p className="text-white font-bold text-lg">{profile.plan}</p>
+                  </div>
                 </div>
-                <span className="text-orange-400 font-mono font-semibold">{profile.promoCode}</span>
+                <div className="text-right">
+                  <div className="flex items-center gap-2">
+                    <Smartphone className="w-5 h-5 text-orange-400" />
+                    <span className="text-2xl font-bold text-white">{profile.deviceCount}</span>
+                  </div>
+                  <span className="text-gray-400 text-sm">устройств</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Dates Section */}
+          <div className="grid grid-cols-1 gap-4">
+            <div className="bg-gray-700/50 backdrop-blur-sm rounded-2xl p-5 border border-gray-600/50">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center">
+                  <Calendar className="w-5 h-5 text-green-400" />
+                </div>
+                <div>
+                  <span className="text-gray-300 text-sm">Дата подключения</span>
+                  <p className="text-white font-semibold">{formatDate(profile.connectionDate)}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gray-700/50 backdrop-blur-sm rounded-2xl p-5 border border-gray-600/50">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 bg-red-500/20 rounded-full flex items-center justify-center">
+                  <Calendar className="w-5 h-5 text-red-400" />
+                </div>
+                <div>
+                  <span className="text-gray-300 text-sm">Дата окончания</span>
+                  <p className="text-white font-semibold">{formatDate(profile.expirationDate)}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Promo Code */}
+          {profile.promoCode && (
+            <div className="bg-gradient-to-r from-orange-500/10 to-yellow-500/10 rounded-2xl p-5 border border-orange-500/30">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-orange-500/20 rounded-full flex items-center justify-center">
+                  <Gift className="w-5 h-5 text-orange-400" />
+                </div>
+                <div>
+                  <span className="text-gray-300 text-sm">Промокод</span>
+                  <p className="text-orange-400 font-bold font-mono text-lg">{profile.promoCode}</p>
+                </div>
               </div>
             </div>
           )}
-
-          {/* Устройства */}
-          <div className="bg-gray-700 rounded-xl p-4">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2">
-                <Smartphone className="w-4 h-4 text-orange-500" />
-                <span className="text-gray-300 font-medium">Устройства</span>
-              </div>
-              <span className="text-white font-semibold">
-                {formatDeviceCount(profile.deviceCount, profile.maxDevices)}
-              </span>
-            </div>
-            {profile.maxDevices !== -1 && profile.maxDevices !== Infinity ? (
-              <div className="w-full bg-gray-600 rounded-full h-2">
-                <div 
-                  className="bg-orange-500 h-2 rounded-full transition-all duration-300"
-                  style={{ width: `${getDeviceProgress(profile.deviceCount, profile.maxDevices)}%` }}
-                ></div>
-              </div>
-            ) : (
-              <div className="w-full bg-gray-600 rounded-full h-2">
-                <div className="bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-500 h-2 rounded-full animate-pulse">
-                  <div className="h-full bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-full animate-pulse"></div>
-                </div>
-              </div>
-            )}
-          
-          </div>
         </div>
 
-        <div className="mt-6 pt-4 border-t border-gray-700">
+        {/* Logout Button */}
+        <div className="mt-8 pt-6 border-t border-gray-700">
           <button
             onClick={handleLogout}
-            className="w-full bg-gray-600 hover:bg-gray-500 text-white py-3 px-4 rounded-lg font-medium transition-colors"
+            className="w-full bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-500 hover:to-gray-600 text-white py-4 px-6 rounded-2xl font-semibold transition-all duration-300 transform hover:scale-[1.02] shadow-lg"
           >
             Выйти из профиля
           </button>
         </div>
+
+        {/* Decorative Elements */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-500/10 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-blue-500/10 to-transparent rounded-full blur-2xl"></div>
       </div>
     </div>
   );
