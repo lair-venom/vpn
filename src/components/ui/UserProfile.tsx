@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { X, Calendar, Gift, Shield, Activity, Smartphone, CheckCircle, Clock, AlertTriangle, User, Crown, Zap } from 'lucide-react';
 import { UserProfile as UserProfileType } from '../../data/userProfiles';
 
@@ -96,14 +96,44 @@ const UserProfile: React.FC<UserProfileProps> = ({
     onClose();
   };
 
+  // Обработчик клика по оверлею
+  const handleOverlayClick = useCallback((e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  }, [onClose]);
+
+  // Обработчик нажатия клавиши Escape
+  React.useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+    <div 
+      className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+      onClick={handleOverlayClick}
+    >
       <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl max-w-md w-full p-8 relative animate-slide-in-bottom max-h-[90vh] overflow-y-auto custom-scrollbar border border-gray-700 shadow-2xl">
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors p-2 hover:bg-gray-700 rounded-full"
+          className="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors p-2 hover:bg-gray-700 rounded-full z-10"
+          aria-label="Закрыть"
         >
           <X size={20} />
         </button>
