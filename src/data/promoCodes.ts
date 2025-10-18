@@ -58,6 +58,12 @@ export const promoCodes: PromoCode[] = [
     isActive: true
   },
   {
+    code: "Venom",
+    discount: 30,
+    description: "Приветственная скидка",
+    isActive: true
+  },
+  {
     code: "Lair",
     discount: 15,
     description: "Экономия 15%",
