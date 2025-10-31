@@ -16,6 +16,12 @@ export const promoCodes: PromoCode[] = [
     isActive: true
   },
   {
+    code: "BadSample",
+    discount: 15,
+    description: "Скидка от друга",
+    isActive: true
+  },
+  {
     code: "DANDY",
     discount: 15,
     description: "Приветственная скидка",
