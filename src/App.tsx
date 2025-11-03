@@ -14,7 +14,7 @@ function App() {
   const { notifications, showNotification, removeNotification } = useNotification();
 
   useEffect(() => {
-    document.title = 'SecureVPN - Безопасный доступ в интернет';
+    document.title = 'Venom VPN - Безопасный доступ в интернет';
     
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
