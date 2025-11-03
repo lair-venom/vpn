@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { Shield, Menu, X, User, LogIn } from 'lucide-react';
 import LoginModal from './ui/LoginModal';
 import UserProfile from './ui/UserProfile';
 import { useAuth } from '../hooks/useAuth';
 
 const Header: React.FC = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const { isAuthenticated, userProfile, login, logout } = useAuth();
-
-  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,28 +51,12 @@ const Header: React.FC = () => {
 
           <div className="flex items-center space-x-4">
             <nav className="hidden md:flex space-x-8">
-              {isHomePage ? (
-                <>
-                  <a href="#about" className="text-gray-300 hover:text-orange-400 transition-colors">О сервисе</a>
-                  <a href="#features" className="text-gray-300 hover:text-orange-400 transition-colors">Преимущества</a>
-                  <a href="#pricing" className="text-gray-300 hover:text-orange-400 transition-colors">Купить</a>
-                  <a href="#installation" className="text-gray-300 hover:text-orange-400 transition-colors">Установка</a>
-                  <button
-                    onClick={() => navigate('/faq')}
-                    className="text-gray-300 hover:text-orange-400 transition-colors"
-                  >
-                    Информация
-                  </button>
-                  <a href="#download" className="text-gray-300 hover:text-orange-400 transition-colors">Рекомендуемые клиенты</a>
-                </>
-              ) : (
-                <button
-                  onClick={() => navigate('/')}
-                  className="text-gray-300 hover:text-orange-400 transition-colors"
-                >
-                  Главная
-                </button>
-              )}
+              <a href="#about" className="text-gray-300 hover:text-orange-400 transition-colors">О сервисе</a>
+              <a href="#features" className="text-gray-300 hover:text-orange-400 transition-colors">Преимущества</a>
+              <a href="#pricing" className="text-gray-300 hover:text-orange-400 transition-colors">Купить</a>
+              <a href="#installation" className="text-gray-300 hover:text-orange-400 transition-colors">Установка</a>
+              <a href="#tutorials" className="text-gray-300 hover:text-orange-400 transition-colors">Информация</a>
+              <a href="#download" className="text-gray-300 hover:text-orange-400 transition-colors">Рекомендуемые клиенты</a>
             </nav>
 
             {/* Login/Profile Button */}
@@ -113,64 +92,48 @@ const Header: React.FC = () => {
           }`}
         >
           <div className="container-custom py-4 flex flex-col space-y-4">
-            {isHomePage ? (
-              <>
-                <a
-                  href="#about"
-                  className="text-gray-300 hover:text-orange-400 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  О сервисе
-                </a>
-                <a
-                  href="#features"
-                  className="text-gray-300 hover:text-orange-400 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Преимущества
-                </a>
-                <a
-                  href="#pricing"
-                  className="text-gray-300 hover:text-orange-400 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Купить
-                </a>
-                <a
-                  href="#installation"
-                  className="text-gray-300 hover:text-orange-400 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Установка
-                </a>
-                <button
-                  onClick={() => {
-                    navigate('/faq');
-                    setIsMenuOpen(false);
-                  }}
-                  className="text-gray-300 hover:text-orange-400 transition-colors text-left"
-                >
-                  Информация
-                </button>
-                <a
-                  href="#download"
-                  className="text-gray-300 hover:text-orange-400 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Рекомендуемые клиенты
-                </a>
-              </>
-            ) : (
-              <button
-                onClick={() => {
-                  navigate('/');
-                  setIsMenuOpen(false);
-                }}
-                className="text-gray-300 hover:text-orange-400 transition-colors text-left"
-              >
-                Главная
-              </button>
-            )}
+            <a 
+              href="#about" 
+              className="text-gray-300 hover:text-orange-400 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              О сервисе
+            </a>
+            <a 
+              href="#features" 
+              className="text-gray-300 hover:text-orange-400 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Преимущества
+            </a>
+            <a 
+              href="#pricing" 
+              className="text-gray-300 hover:text-orange-400 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Купить
+            </a>
+            <a 
+              href="#installation" 
+              className="text-gray-300 hover:text-orange-400 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Установка
+            </a>
+            <a 
+              href="#tutorials" 
+              className="text-gray-300 hover:text-orange-400 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Информация
+            </a>
+            <a 
+              href="#download" 
+              className="text-gray-300 hover:text-orange-400 transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Рекомендуемые клиенты
+            </a>
             
             {/* Mobile Login Button */}
             <button
