@@ -27,8 +27,8 @@ const FAQModal: React.FC<FAQModalProps> = ({ isOpen, onClose }) => {
       id: 1,
       question: "Покупка. Как все происходит",
       images: [
-    "https://media.discordapp.net/attachments/1247239991088648223/1431186371040776232/gsc2.png?ex=690905ed&is=6907b46d&hm=89468d1831b88188fe2aba0c81fb010881e34305b4709f8fe890065a8602639d&=&format=webp&quality=lossless&width=1207&height=679",
-    "https://media.discordapp.net/attachments/1247239991088648223/1431186371040776232/gsc2.png?ex=690905ed&is=6907b46d&hm=89468d1831b88188fe2aba0c81fb010881e34305b4709f8fe890065a8602639d&=&format=webp&quality=lossless&width=1207&height=679",
+    "",
+    "",
   ],
       answer: [
         "Выбирайте подходящий вам тариф и оплачивайте его. После того как вы оплатили вам необходимо связаться с Администратором удобным для вас способом Discord или Telegram (ссылки находятся в блоке оплаты, где указан номер карты) и предоставить чек об оплате.",
