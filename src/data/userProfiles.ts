@@ -15,7 +15,6 @@ export interface UserProfile {
 export const userProfiles: UserProfile[] = [
   {
     userId: "vm",
-    connectionDate: "2024-01-15T10:30:00Z",
     expirationDate: "infinite",
     promoCode: "VENOM",
     plan: "Создатель",
@@ -36,22 +35,12 @@ export const userProfiles: UserProfile[] = [
     {
     userId: "571160520",
     connectionDate: "2024-01-15T10:30:00Z",
-    expirationDate: "2024-04-15T10:30:00Z",
+    expirationDate: "infinite",
     promoCode: "DANDY",
     plan: "Продвинутый",
     status: "active",
     deviceCount: 3,
     username: "DANDY"
-  },
-    {
-    userId: "661396226",
-    connectionDate: "2025-07-21T10:30:00Z",
-    expirationDate: "2025-08-21T10:30:00Z",
-    promoCode: "",
-    plan: "Базовый",
-    status: "active",
-    deviceCount: 1,
-    username: "Monika"
   },
   {
     userId: "889666596",
