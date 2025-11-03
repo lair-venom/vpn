@@ -55,7 +55,7 @@ const Header: React.FC = () => {
               <a href="#features" className="text-gray-300 hover:text-orange-400 transition-colors">Преимущества</a>
               <a href="#pricing" className="text-gray-300 hover:text-orange-400 transition-colors">Купить</a>
               <a href="#installation" className="text-gray-300 hover:text-orange-400 transition-colors">Установка</a>
-              <a href="#tutorials" className="text-gray-300 hover:text-orange-400 transition-colors">Информация</a>
+              <a href="#tutorials" className="text-gray-300 hover:text-orange-400 transition-colors">FAQ</a>
               <a href="#download" className="text-gray-300 hover:text-orange-400 transition-colors">Рекомендуемые клиенты</a>
             </nav>
 
@@ -125,7 +125,7 @@ const Header: React.FC = () => {
               className="text-gray-300 hover:text-orange-400 transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              Информация
+              FAQ
             </a>
             <a 
               href="#download" 

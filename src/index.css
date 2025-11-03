@@ -112,3 +112,8 @@
   animation: progress linear;
   animation-fill-mode: forwards;
 }
+
+.p-6 {
+    padding: 1.5rem;
+    border-radius: 25px;
+}

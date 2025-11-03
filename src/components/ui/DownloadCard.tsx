@@ -1,8 +1,10 @@
 import React from 'react';
+import { CheckCircle2, AlertCircle } from 'lucide-react';
 
 interface DownloadLink {
   name: string;
   url: string;
+  recommended?: boolean;
 }
 
 interface DownloadCardProps {
@@ -12,11 +14,11 @@ interface DownloadCardProps {
   os: string;
 }
 
-const DownloadCard: React.FC<DownloadCardProps> = ({ 
-  title, 
-  icon, 
-  description, 
-  os 
+const DownloadCard: React.FC<DownloadCardProps> = ({
+  title,
+  icon,
+  description,
+  os
 }) => {
   return (
     <div className="download-card group">
@@ -29,9 +31,18 @@ const DownloadCard: React.FC<DownloadCardProps> = ({
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-400 hover:text-orange-500 transition-colors text-sm py-1 px-3 rounded-md bg-gray-700/50 hover:bg-gray-700 flex items-center justify-center"
+            className={`text-sm py-2 px-3 rounded-md transition-all duration-300 flex items-center gap-2 ${
+              link.recommended !== false
+                ? 'bg-green-500/20 text-green-300 border border-green-500/40 hover:bg-green-500/30 hover:border-green-500'
+                : 'bg-red-500/20 text-red-300 border border-red-500/40 hover:bg-red-500/30 hover:border-red-500'
+            }`}
           >
-            {link.name}
+            {link.recommended !== false ? (
+              <CheckCircle2 className="w-4 h-4 flex-shrink-0" />
+            ) : (
+              <AlertCircle className="w-4 h-4 flex-shrink-0" />
+            )}
+            <span>{link.name}</span>
           </a>
         ))}
       </div>
