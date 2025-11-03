@@ -3,7 +3,6 @@
 
 export interface UserProfile {
   userId: string;
-  connectionDate: string; // ISO date string
   expirationDate: string; // ISO date string
   promoCode?: string;
   plan: string;
@@ -24,7 +23,6 @@ export const userProfiles: UserProfile[] = [
   },
    {
     userId: "473875379",
-    connectionDate: "2024-01-15T10:30:00Z",
     expirationDate: "2026-06-29T12:40:00Z", 
     promoCode: "Kirill",
     plan: "Продвинутый",
@@ -34,7 +32,6 @@ export const userProfiles: UserProfile[] = [
   },
     {
     userId: "571160520",
-    connectionDate: "2024-01-15T10:30:00Z",
     expirationDate: "infinite",
     promoCode: "DANDY",
     plan: "Продвинутый",
@@ -44,7 +41,6 @@ export const userProfiles: UserProfile[] = [
   },
   {
     userId: "889666596",
-    connectionDate: "2024-12-01T14:20:00Z", 
     expirationDate: "2025-03-01T14:20:00Z",
     promoCode: "Liza",
     plan: "Премиум",
@@ -54,7 +50,6 @@ export const userProfiles: UserProfile[] = [
   },
   {
     userId: "5515415353",
-    connectionDate: "2024-11-15T09:15:00Z",
     expirationDate: "2025-02-15T09:15:00Z",
     promoCode: "SKOV",
     plan: "Базовый",
@@ -64,7 +59,6 @@ export const userProfiles: UserProfile[] = [
   },
   {
     userId: "admin_001",
-    connectionDate: "infinite",
     expirationDate: "infinite",
     promoCode: "Lair",
     plan: "Кибер-VM",
