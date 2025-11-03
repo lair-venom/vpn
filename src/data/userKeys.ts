@@ -16,61 +16,55 @@ export const userKeys: UserKey[] = [
     description: "Venom"
   },
   {
-    key: "7JMI3W",
+    key: "473875379",
     userId: "473875379",
     isActive: true,
     description: "Kirill"
   },
     {
-    key: "86N7FW",
+    key: "571160520",
     userId: "571160520",
     isActive: true,
     description: "DANDY"
   },
-    {
-    key: "H3I2MW",
-    userId: "661396226",
-    isActive: true,
-    description: "Monika"
-  },
-    {
-    key: "6BI1P3",
+  {
+    key: "889666596",
     userId: "889666596",
     isActive: true,
     description: "Liza"
   },
     {
-    key: "5F48WI",
+    key: "941242953",
     userId: "941242953",
     isActive: true,
     description: "Arina"
   },
     {
-    key: "UIPTR8",
+    key: "1135132084",
     userId: "1135132084",
     isActive: true,
     description: "Dmitry"
   },
     {
-    key: "M2R5VG",
+    key: "1255553073",
     userId: "1255553073",
     isActive: true,
     description: "Elona"
   },
     {
-    key: "MCSK0X",
+    key: "1372271209",
     userId: "1372271209",
     isActive: true,
     description: "Andrey"
   },
     {
-    key: "Y5RZGX",
+    key: "1954594840",
     userId: "1954594840",
     isActive: true,
     description: "pasha"
   },
   {
-    key: "FYMJEB", 
+    key: "5515415353", 
     userId: "5515415353",
     isActive: true,
     description: "SKOV"
