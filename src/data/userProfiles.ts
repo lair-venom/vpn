@@ -21,6 +21,15 @@ export const userProfiles: UserProfile[] = [
     deviceCount: 999,
     username: "Venom"
   },
+    {
+    userId: "1666581983",
+    expirationDate: "2026-01-30T12:34:00Z",
+    promoCode: "BadSample",
+    plan: "Продвинутый",
+    status: "active",
+    deviceCount: 3,
+    username: "BadSample"
+  },
    {
     userId: "473875379",
     expirationDate: "2026-07-28T12:34:00Z", 
