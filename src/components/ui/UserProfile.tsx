@@ -177,18 +177,6 @@ const UserProfile: React.FC<UserProfileProps> = ({
           <div className="grid grid-cols-1 gap-4">
             <div className="bg-gray-700/50 backdrop-blur-sm rounded-2xl p-5 border border-gray-600/50">
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center">
-                  <Calendar className="w-5 h-5 text-green-400" />
-                </div>
-                <div>
-                  <span className="text-gray-300 text-sm">Дата подключения</span>
-                  <p className="text-white font-semibold">{formatDate(profile.connectionDate)}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-gray-700/50 backdrop-blur-sm rounded-2xl p-5 border border-gray-600/50">
-              <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 bg-red-500/20 rounded-full flex items-center justify-center">
                   <Calendar className="w-5 h-5 text-red-400" />
                 </div>
