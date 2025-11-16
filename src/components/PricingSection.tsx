@@ -14,6 +14,7 @@ interface Plan {
   features: string[];
   popular?: boolean;
   color: string;
+  isLifetime?: boolean;
 }
  
 const plans: Plan[] = [
@@ -66,9 +67,10 @@ const plans: Plan[] = [
     icon: <Server className="w-8 h-8" />,
     basePrice: 600,
     color: 'from-orange-500 to-red-600',
+    isLifetime: true,
     features: [
       'Безлимитный трафик',
-      '20 устройств',
+      '5 устройств',
       'Максимальная скорость',
       'Личный менеджер',
       'Все устройства'
@@ -353,7 +355,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
         </div>
 
         {showTrialForm ? (
-          <div className="max-w-md mx-auto">
+          <div className="max-w-md mx-auto mb-8">
             <div className="bg-gray-800 border border-gray-700 rounded-2xl shadow-lg p-8">
               <div className="text-center mb-6">
                 <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -422,14 +424,29 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {plans.map((plan) => (
+          {plans.map((plan) => {
+            const shouldShowPlan = plan.id === 'cyber-vm' ? selectedPeriod === '1year' : true;
+            if (!shouldShowPlan) return null;
+
+            return (
             <div
               key={plan.id}
-              className={`relative bg-gray-800 border border-gray-700 rounded-2xl shadow-lg hover:shadow-orange-500/20 hover:border-orange-500 transition-all duration-300 transform hover:-translate-y-2 ${
-                plan.popular ? 'ring-2 ring-orange-500' : ''
+              className={`relative bg-gray-800 border rounded-2xl shadow-lg transition-all duration-300 transform hover:-translate-y-2 ${
+                plan.id === 'cyber-vm'
+                  ? 'border-orange-500 ring-4 ring-orange-500/50 shadow-orange-500/30 bg-gradient-to-br from-gray-800 via-gray-800 to-orange-900/20'
+                  : plan.popular
+                    ? 'ring-2 ring-orange-500 border-gray-700 hover:shadow-orange-500/20 hover:border-orange-500'
+                    : 'border-gray-700 hover:shadow-orange-500/20 hover:border-orange-500'
               }`}
             >
-              {plan.popular && (
+              {plan.id === 'cyber-vm' && (
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+                  <span className="bg-gradient-to-r from-orange-500 to-red-600 text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg animate-pulse">
+                    НАВСЕГДА
+                  </span>
+                </div>
+              )}
+              {plan.popular && plan.id !== 'cyber-vm' && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                   <span className="bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-medium">
                     Популярный
@@ -447,32 +464,47 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
                 </h3>
 
                 <div className="text-center mb-6">
-                  <div className="flex items-center justify-center mb-2">
-                    {promoDiscount > 0 && (
-                      <span className="text-2xl font-bold text-gray-500 line-through mr-2">
-                        {getOriginalPrice(plan.basePrice)}₽
-                      </span>
-                    )}
-                    <span className="text-4xl font-bold text-white">
-                      {calculatePrice(plan.basePrice)}₽
-                    </span>
-                  </div>
-                  <p className="text-gray-400">
-                    за {getPeriodLabel()}
-                  </p>
-                  {appliedPromo && promoDiscount > 0 && (
-                    selectedPeriod === '3months' || selectedPeriod === '1year'
-                  ) && (
-                    <div className="flex items-center justify-center gap-2 mt-2">
-                      <span className="bg-green-500/20 text-green-400 px-2 py-1 rounded-full text-sm font-medium">
-                        Промокод: {appliedPromo} (-{promoDiscount}%)
-                      </span>
-                    </div>
-                  )}
-                  {getDiscount() > 0 && (
-                    <p className="text-orange-400 font-medium">
-                      Экономия {getDiscount()}%
-                    </p>
+                  {plan.isLifetime ? (
+                    <>
+                      <div className="flex items-center justify-center mb-2">
+                        <span className="text-4xl font-bold bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent">
+                          {plan.basePrice}₽
+                        </span>
+                      </div>
+                      <p className="text-orange-400 font-bold text-lg">
+                        Бесконечная подписка
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex items-center justify-center mb-2">
+                        {promoDiscount > 0 && (
+                          <span className="text-2xl font-bold text-gray-500 line-through mr-2">
+                            {getOriginalPrice(plan.basePrice)}₽
+                          </span>
+                        )}
+                        <span className="text-4xl font-bold text-white">
+                          {calculatePrice(plan.basePrice)}₽
+                        </span>
+                      </div>
+                      <p className="text-gray-400">
+                        за {getPeriodLabel()}
+                      </p>
+                      {appliedPromo && promoDiscount > 0 && (
+                        selectedPeriod === '3months' || selectedPeriod === '1year'
+                      ) && (
+                        <div className="flex items-center justify-center gap-2 mt-2">
+                          <span className="bg-green-500/20 text-green-400 px-2 py-1 rounded-full text-sm font-medium">
+                            Промокод: {appliedPromo} (-{promoDiscount}%)
+                          </span>
+                        </div>
+                      )}
+                      {getDiscount() > 0 && (
+                        <p className="text-orange-400 font-medium">
+                          Экономия {getDiscount()}%
+                        </p>
+                      )}
+                    </>
                   )}
                 </div>
 
@@ -493,7 +525,8 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
                 </button>
               </div>
             </div>
-          ))}
+          );
+          })}
         </div>
         )}
       </div>

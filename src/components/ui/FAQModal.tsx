@@ -95,9 +95,9 @@ const FAQModal: React.FC<FAQModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <>
-      <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl max-w-4xl w-full h-[90vh] flex flex-col relative border border-gray-700 shadow-2xl">
-          <div className="flex-shrink-0 bg-gradient-to-r from-gray-800 to-gray-900 border-b border-gray-700 p-6">
+      <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4">
+        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl sm:rounded-3xl max-w-6xl w-full h-[95vh] sm:h-[90vh] flex flex-col relative border border-gray-700 shadow-2xl">
+          <div className="flex-shrink-0 bg-gradient-to-r from-gray-800 to-gray-900 border-b border-gray-700 p-4 sm:p-6">
             <button
               onClick={onClose}
               className="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors p-2 hover:bg-gray-700 rounded-full"
@@ -106,12 +106,12 @@ const FAQModal: React.FC<FAQModalProps> = ({ isOpen, onClose }) => {
             </button>
 
             <div className="flex items-center gap-4 mb-4">
-              <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center flex-shrink-0">
-                <HelpCircle className="w-8 h-8 text-white" />
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center flex-shrink-0">
+                <HelpCircle className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </div>
               <div>
-                <h2 className="text-3xl font-bold text-white">Часто задаваемые вопросы</h2>
-                <p className="text-gray-400">Найдите ответы на популярные вопросы</p>
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">Часто задаваемые вопросы</h2>
+                <p className="text-sm sm:text-base text-gray-400">Найдите ответы на популярные вопросы</p>
               </div>
             </div>
 
@@ -127,21 +127,21 @@ const FAQModal: React.FC<FAQModalProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-6 space-y-4" style={{ scrollBehavior: 'smooth' }}>
+          <div className="flex-1 overflow-y-auto p-3 sm:p-6 space-y-3 sm:space-y-4 custom-scrollbar" style={{ scrollBehavior: 'smooth' }}>
             {filteredFAQ.length > 0 ? (
               filteredFAQ.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-gray-700/50 backdrop-blur-sm rounded-xl p-6 border border-gray-600/50 hover:border-orange-500/50 transition-all duration-300"
+                  className="bg-gray-700/50 backdrop-blur-sm rounded-lg sm:rounded-xl p-4 sm:p-6 border border-gray-600/50 hover:border-orange-500/50 transition-all duration-300"
                 >
-                  <h3 className="text-xl font-bold text-white mb-4 flex items-start gap-3">
+                  <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4 flex items-start gap-2 sm:gap-3">
                     <span className="text-orange-500 mt-1 flex-shrink-0">{item.id}.</span>
                     <span>{item.question}</span>
                   </h3>
 
-                  <div className="space-y-3 ml-8">
+                  <div className="space-y-2 sm:space-y-3 ml-0 sm:ml-8">
                     {item.answer.map((paragraph, index) => (
-                      <p key={index} className="text-gray-300 leading-relaxed">
+                      <p key={index} className="text-sm sm:text-base text-gray-300 leading-relaxed">
                         {paragraph}
                       </p>
                     ))}
@@ -188,7 +188,7 @@ const FAQModal: React.FC<FAQModalProps> = ({ isOpen, onClose }) => {
             )}
           </div>
 
-          <div className="flex-shrink-0 bg-gradient-to-r from-gray-800 to-gray-900 border-t border-gray-700 p-6">
+          <div className="flex-shrink-0 bg-gradient-to-r from-gray-800 to-gray-900 border-t border-gray-700 p-4 sm:p-6">
             <div className="bg-orange-500/10 border border-orange-500/30 rounded-xl p-4">
               <p className="text-gray-300 text-center mb-3">
                 Не нашли решение вашей проблемы?
