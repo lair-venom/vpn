@@ -65,7 +65,7 @@ const plans: Plan[] = [
     id: 'cyber-vm',
     name: 'Кибер-VM',
     icon: <Server className="w-8 h-8" />,
-    basePrice: 5040,
+    basePrice: 600,
     color: 'from-orange-500 to-red-600',
     isLifetime: true,
     features: [
@@ -423,9 +423,9 @@ const PricingSection: React.FC<PricingSectionProps> = ({ showNotification }) => 
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 auto-rows-max">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {plans.map((plan) => {
-            const shouldShowPlan = plan.id === 'cyber-vm' ? selectedPeriod === '1year' : selectedPeriod !== '1year';
+            const shouldShowPlan = plan.id === 'cyber-vm' ? selectedPeriod === '1year' : true;
             if (!shouldShowPlan) return null;
 
             return (
