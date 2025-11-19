@@ -104,16 +104,27 @@ const FAQModal: React.FC<FAQModalProps> = ({ isOpen, onClose }) => {
   return (
     <>
       <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4">
-        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl sm:rounded-3xl max-w-6xl w-full h-[95vh] sm:h-[90vh] flex flex-col relative border border-gray-700 shadow-2xl">
+        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl sm:rounded-3xl max-w-6xl w-full max-h-[95vh] sm:max-h-[90vh] flex flex-col relative border border-gray-700 shadow-2xl">
           <div className="flex-shrink-0 bg-gradient-to-r from-gray-800 to-gray-900 border-b border-gray-700 p-4 sm:p-6">
-            <button
-              onClick={onClose}
-              className="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors p-2 hover:bg-gray-700 rounded-full"
-            >
-              <X size={24} />
-            </button>
+            <div className="absolute top-4 right-4 flex items-center gap-2">
+              <a
+                href="https://t.me/fm666venom"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-orange-500 transition-colors p-2 hover:bg-gray-700 rounded-full"
+                title="Связаться с администратором"
+              >
+                <MessageCircle size={18} />
+              </a>
+              <button
+                onClick={onClose}
+                className="text-gray-400 hover:text-white transition-colors p-2 hover:bg-gray-700 rounded-full"
+              >
+                <X size={20} />
+              </button>
+            </div>
 
-            <div className="flex items-center gap-4 mb-4">
+            <div className="flex items-center gap-4 mb-4 pr-20">
               <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center flex-shrink-0">
                 <HelpCircle className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </div>
@@ -135,7 +146,7 @@ const FAQModal: React.FC<FAQModalProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-3 sm:p-6 space-y-3 sm:space-y-4 custom-scrollbar" style={{ scrollBehavior: 'smooth' }}>
+          <div className="flex-1 overflow-y-auto p-3 sm:p-6 pb-6 space-y-3 sm:space-y-4 custom-scrollbar" style={{ scrollBehavior: 'smooth' }}>
             {filteredFAQ.length > 0 ? (
               filteredFAQ.map((item) => (
                 <div
@@ -196,22 +207,6 @@ const FAQModal: React.FC<FAQModalProps> = ({ isOpen, onClose }) => {
             )}
           </div>
 
-          <div className="flex-shrink-0 bg-gradient-to-r from-gray-800 to-gray-900 border-t border-gray-700 p-4 sm:p-6">
-            <div className="bg-orange-500/10 border border-orange-500/30 rounded-xl p-4">
-              <p className="text-gray-300 text-center mb-3">
-                Не нашли решение вашей проблемы?
-              </p>
-              <a
-                href="https://t.me/fm666venom"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
-              >
-                <MessageCircle className="w-5 h-5" />
-                Связаться с администратором
-              </a>
-            </div>
-          </div>
         </div>
       </div>
 
