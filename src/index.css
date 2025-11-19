@@ -10,6 +10,16 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-medium text-orange-300;
   }
+
+  ::selection {
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(255, 157, 102, 0.5);
+  }
+
+  ::-moz-selection {
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(255, 157, 102, 0.5);
+  }
 }
 
 @layer components {
