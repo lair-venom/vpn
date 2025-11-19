@@ -13,7 +13,7 @@
 
   ::selection {
     color: #ffffff;
-    text-shadow: 0 0 8px rgba(255, 157, 102, 0.5);
+    text-shadow: 0 0 8px rgba(255, 165, 0, 0.5);
   }
 
   ::-moz-selection {
