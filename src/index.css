@@ -11,14 +11,16 @@
     @apply font-medium text-orange-300;
   }
 
-  ::selection {
-    color: #ffffff;
-    text-shadow: 0 0 8px rgba(255, 165, 0, 0.5);
-  }
+::selection
+Специфичность: (0,0,1)
+ {
+    color: #ffb380;
+    text-shadow: 0 0 5px rgb(255 135 49);
+}
 
   ::-moz-selection {
-    color: #ffffff;
-    text-shadow: 0 0 8px rgba(255, 157, 102, 0.5);
+    color: #ffb380;
+    text-shadow: 0 0 5px rgb(255 135 49);
   }
 }
 
