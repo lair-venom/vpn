@@ -11,8 +11,7 @@
     @apply font-medium text-orange-300;
   }
 
-::selection
-Специфичность: (0,0,1)
+ ::selection
  {
     color: #ffb380;
     text-shadow: 0 0 5px rgb(255 135 49);
