@@ -85,7 +85,7 @@ const FAQModal: React.FC<FAQModalProps> = ({ isOpen, onClose }) => {
       ]
     },
     {
-      id: 6,
+      id: 7,
       question: "Как настроить VPN",
       answer: [
         "VLESS — это облегченная и более строгая версия популярного протокола VMess. Его ключевые преимущества:"
@@ -96,7 +96,7 @@ const FAQModal: React.FC<FAQModalProps> = ({ isOpen, onClose }) => {
       ]
     },
     {
-      id: 7,
+      id: 8,
       question: "Чем ваш VPN на VLESS лучше обычных VPN (OpenVPN, WireGuard)?",
       answer: [
         "Наш сервис оптимизирован для обхода сложных блокировок (как, например, в РФ)." 
